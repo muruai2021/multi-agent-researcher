@@ -125,14 +125,40 @@ status: production
 
 ```
 multi-agent-research/
-├── SKILL.md                  ← 主入口（主编调度）
+├── SKILL.md                     ← 主入口（主编调度）
+├── grading.json                 ← 审核评分结果
 └── references/
-    ├── agents.md               ← 10个Agent系统提示词
-    ├── pipeline-multi-agent.md ← 四阶段流水线详解
-    ├── scouting-templates.md   ← Scout A-E详细模板
-    ├── report-templates.md     ← Writer模板+报告结构
-    └── test_pool.md           ← 测试用例池
+    ├── agents.md                  ← 10个Agent系统提示词
+    ├── pipeline-multi-agent.md    ← 四阶段流水线详解
+    ├── scouting-templates.md      ← Scout A-E详细模板
+    ├── report-templates.md        ← Writer模板+报告结构
+    ├── test_pool.md              ← 测试用例池
+    ├── failure_case_log.md       ← 失败案例追踪
+    └── self-review-template.md   ← 自审模板
 ```
+
+## 错误处理
+
+### 主编调度异常
+| 异常场景 | 处理方式 |
+|----------|----------|
+| Scout数据包缺失 | 追问用户补充背景信息，最多3次 |
+| 某Scout超时 | 并行超时2分钟，自动跳过，标记数据缺口 |
+| 数据矛盾 | 标注矛盾点，由Analyst判断采用哪个数据源 |
+| 评审不通过（3轮） | 交付当前版本，列出剩余问题清单 |
+
+### 边界场景处理
+| 场景 | 处理方式 |
+|------|----------|
+| 调研主题模糊（"帮我调研一下"） | 主编追问：行业/产品/竞品/用户？调研深度？ |
+| 超出范围（法律/财务/实时新闻） | 明确说明限制，建议转介专业人士 |
+| 数据不足 | 标注数据缺口，说明估算或假设前提 |
+| 调研对象无公开信息 | 说明调研局限，建议实地访谈补充 |
+
+### Not For
+- 实时新闻查询（用web search工具）
+- 法律/财务专业意见（需专业人士）
+- 一次性的简单问题
 
 ## 验证清单
 
@@ -142,3 +168,5 @@ multi-agent-research/
 - [ ] test_pool.md在references/目录下
 - [ ] 10个Agent角色定义清晰
 - [ ] 4阶段流程覆盖完整
+- [ ] 错误处理机制完整
+- [ ] 边界场景覆盖

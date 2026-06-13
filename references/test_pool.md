@@ -121,3 +121,24 @@
 | description不以Use when开头 | P0 | ✅ 已修复 | 重写description |
 | 无test_pool.md | P0 | ✅ 已修复 | 已创建 |
 | 无references/目录 | P0 | ✅ 已修复 | 已创建5个reference文件 |
+| 缺少failure_case_log.md | P0 | ✅ 已修复 | 2026-06-13添加 |
+| 缺少self-review-template.md | P0 | ✅ 已修复 | 2026-06-13添加 |
+| 缺少错误处理章节 | P1 | ✅ 已修复 | 2026-06-13添加 |
+| 缺少边界场景描述 | P1 | ✅ 已修复 | 2026-06-13添加 |
+
+---
+
+## 回归测试用例
+
+| 用例ID | 测试项 | 输入 | 预期结果 | 通过条件 |
+|--------|--------|------|----------|----------|
+| RE-FM-001 | frontmatter完整性 | 修改frontmatter字段 | 各Agent正常工作 | 字段完整时正常 |
+| RE-FM-002 | frontmatter缺失 | 删除任一必填字段 | 报错提示缺失字段 | 有友好错误提示 |
+| RE-TRIGGER-001 | 触发词覆盖 | "审查并完善这个skills" | Skill被正确触发 | 触发multi-agent--skills-review |
+| RE-TRIGGER-002 | 触发词模糊主题 | "帮我调研一下" | 主编追问细节 | 不崩溃，追问用户 |
+| RE-PIPELINE-001 | 四阶段流程 | 完整调研请求 | 四阶段依次执行 | 每阶段有输出 |
+| RE-PIPELINE-002 | Scout并行 | 5个Scout任务 | 并行执行 | 同时完成而非顺序 |
+| RE-REVIEW-001 | 3轮评审上限 | 3次评审不通过 | 停止循环 | 不无限循环 |
+| RE-ERR-001 | 数据矛盾处理 | Scout数据冲突 | Analyst标注矛盾点 | 报告中有说明 |
+| RE-ERR-002 | 超时处理 | Scout超时 | 标记数据缺口继续 | 不卡住流程 |
+| RE-OUTPUT-001 | 输出物格式 | 完整调研完成 | YAML+Markdown+HTML | 三种格式都生成 |
