@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  multi-agent-researcher · 输出报告模板
+  ============================================================================
+  版本: v1.3.0
+  风格: Light Editorial（暖白底 + 双线报头 + 4 色 Tier + Lucide SVG）
+  字体: Plus Jakarta Sans（正文）+ Newsreader（衬线斜体）+ JetBrains Mono（数字）
+
+  使用说明:
+  ----------
+  1. 占位符约定:
+     {{REPORT_TITLE}}        - 报告主标题
+     {{REPORT_SUBTITLE}}     - 副标题（衬线斜体）
+     {{REPORT_DATE}}         - 报告日期 YYYY-MM-DD
+     {{REPORT_TYPE}}         - 调研类型（通用商业/产品/竞品/用户研究）
+     {{CHAPTER_N}}           - 章节占位（替换为实际内容）
+     {{STAT_VALUE}}          - 关键数据值
+     {{STAT_UNIT}}           - 单位（衬线斜体）
+     {{EVIDENCE_URL}}        - 证据链接
+
+  2. 章节结构（8 章 + 附录 A）:
+     01 执行摘要
+     02 项目背景与定位命题
+     03 市场分析
+     04 竞争格局分析
+     05 用户洞察
+     06 案例参照
+     07 战略建议
+     08 投资测算与风险预案
+     A  附录 · 数据来源与说明
+
+  3. Tier 色板（4 种语义色 + 1 个强调色）:
+     --t-s  #4A3FB0 紫  - 核心 / 官方 / 高权重
+     --t-a  #14579A 蓝  - 权威 / 二级
+     --t-b  #2D6A1A 绿  - 行业 / 增长 / 成功
+     --t-c  #8A5510 棕  - 产品 / 落地 / 中等
+     --accent #B33A3A 红 - 警告 / 失败 / 编辑高亮
+
+  4. 组件库（在文件末尾 9.A 章节列出全部可复用组件）
+  ============================================================================
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{REPORT_TITLE}} · {{REPORT_DATE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* === Light Editorial — Warm Paper Tokens === */
+  :root {
+    --bg: #F7F4EC;
+    --bg-elev: #EFEBE0;
+    --bg-card: #FCFAF4;
+    --bg-hover: #F1ECE0;
+    --line: #D9D3C2;
+    --line-strong: #B8AF96;
+    --line-soft: #E6E0CE;
+    --text: #1A1815;
+    --text-mute: #5C564B;
+    --text-dim: #8B8474;
+    --text-faint: #B0A998;
+    --accent: #B33A3A;
+    --accent-soft: #B33A3A14;
+    --accent-tint: #F8EDEC;
+    --t-s: #4A3FB0;  --t-s-tint: #EFECFA;
+    --t-a: #14579A;  --t-a-tint: #E8EFF8;
+    --t-b: #2D6A1A;  --t-b-tint: #EBF3E5;
+    --t-c: #8A5510;  --t-c-tint: #F7EEE0;
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+    --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 72px;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0);
+    background-size: 32px 32px;
+    background-attachment: fixed;
+  }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: var(--sp-7) var(--sp-5); }
+
+  /* === Type utilities === */
+  h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.018em; margin: 0; }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .serif { font-family: var(--font-serif); }
+  .em { font-family: var(--font-serif); font-style: italic; }
+  .eyebrow { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-mute); }
+  .smallcaps { font-variant-caps: all-small-caps; letter-spacing: 0.1em; font-size: 11px; }
+
+  /* === Masthead === */
+  .masthead {
+    border-top: 3px double var(--text);
+    border-bottom: 1px solid var(--text);
+    padding: var(--sp-5) 0 var(--sp-4);
+    margin-bottom: var(--sp-7);
+  }
+  .masthead-eyebrow { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line); margin-bottom: var(--sp-4); }
+  .masthead-eyebrow .num { font-size: 11px; }
+  .masthead-main { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--sp-5); margin-bottom: var(--sp-4); }
+  .masthead-title { font-size: clamp(38px, 5vw, 60px); font-weight: 700; line-height: 1.02; letter-spacing: -0.04em; color: var(--text); }
+  .masthead-title em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--text-mute); }
+  .masthead-meta { text-align: right; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); line-height: 1.7; }
+  .masthead-meta .num { color: var(--text); }
+  .meta-bar { display: flex; gap: var(--sp-5); flex-wrap: wrap; margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid var(--line); }
+  .meta-item { display: flex; align-items: center; gap: var(--sp-2); font-size: 12px; color: var(--text-mute); }
+  .meta-item svg { width: 14px; height: 14px; stroke: currentColor; flex-shrink: 0; }
+  .meta-item strong { color: var(--text); font-weight: 600; }
+
+  /* === Section === */
+  .section { margin-bottom: var(--sp-7); }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--sp-5); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--text); }
+  .section-title { font-size: 24px; letter-spacing: -0.02em; }
+  .section-title .num { color: var(--text-dim); font-size: 14px; margin-right: var(--sp-2); font-weight: 400; }
+  h3.section-sub { font-size: 17px; font-weight: 600; color: var(--text); margin: var(--sp-5) 0 var(--sp-3); padding-bottom: var(--sp-2); border-bottom: 1px solid var(--line-soft); }
+  h3.section-sub:first-of-type { margin-top: 0; }
+
+  /* === Stat cards === */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  @media (max-width: 800px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: var(--bg-card); border: 1px solid var(--line); padding: var(--sp-5); position: relative; overflow: hidden; }
+  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: currentColor; }
+  .stat .num { font-size: 48px; font-weight: 600; letter-spacing: -0.035em; line-height: 1; color: var(--text); }
+  .stat .unit { font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--text-mute); margin-left: 4px; font-weight: 400; }
+  .stat .label { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--text-mute); margin-top: var(--sp-3); display: flex; align-items: center; gap: var(--sp-2); }
+  .stat .glyph { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; flex-shrink: 0; }
+  .stat .glyph svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .stat .delta { display: inline-block; margin-top: var(--sp-3); font-family: var(--font-mono); font-size: 11px; padding: 2px 8px; background: var(--bg-elev); border: 1px solid var(--line); color: var(--text); }
+  .stat .delta.down { color: var(--accent); border-color: var(--accent); background: var(--accent-tint); }
+  .stat.s { color: var(--t-s); }   .stat.s .num, .stat.s .label { color: var(--t-s); }
+  .stat.a { color: var(--t-a); }   .stat.a .num, .stat.a .label { color: var(--t-a); }
+  .stat.b { color: var(--t-b); }   .stat.b .num, .stat.b .label { color: var(--t-b); }
+  .stat.c { color: var(--t-c); }   .stat.c .num, .stat.c .label { color: var(--t-c); }
+  .stat.d { color: var(--accent); } .stat.d .num, .stat.d .label { color: var(--accent); }
+
+  /* === Bar chart === */
+  .chart { background: var(--bg-card); border: 1px solid var(--line); padding: var(--sp-5); }
+  .chart-legend { display: flex; gap: var(--sp-5); margin-bottom: var(--sp-4); padding-bottom: var(--sp-3); border-bottom: 1px dashed var(--line); flex-wrap: wrap; }
+  .chart-legend-item { display: flex; align-items: center; gap: var(--sp-2); font-size: 11px; font-family: var(--font-mono); color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.06em; }
+  .chart-legend-item::before { content: ''; width: 18px; height: 2px; background: currentColor; }
+  .chart-legend-item.s { color: var(--t-s); }
+  .chart-legend-item.a { color: var(--t-a); }
+  .chart-legend-item.b { color: var(--t-b); }
+  .chart-legend-item.c { color: var(--t-c); }
+  .bar-row { display: grid; grid-template-columns: 36px 160px 1fr 60px; align-items: center; gap: var(--sp-3); padding: 7px 0; font-size: 13px; border-bottom: 1px dotted var(--line-soft); }
+  .bar-row:last-child { border-bottom: none; }
+  .bar-rank { font-family: var(--font-mono); color: var(--text-dim); font-size: 10.5px; text-align: right; }
+  .bar-name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { height: 6px; background: var(--bg-elev); border: 1px solid var(--line-soft); position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; transition: width 0.8s var(--ease); }
+  .bar-row.s .bar-fill { background: var(--t-s); }
+  .bar-row.a .bar-fill { background: var(--t-a); }
+  .bar-row.b .bar-fill { background: var(--t-b); }
+  .bar-row.c .bar-fill { background: var(--t-c); }
+  .bar-row.d .bar-fill { background: var(--accent); }
+  .bar-score { font-family: var(--font-mono); font-weight: 500; text-align: right; color: var(--text); }
+  .bar-row.s .bar-score { color: var(--t-s); }
+  .bar-row.a .bar-score { color: var(--t-a); }
+  .bar-row.b .bar-score { color: var(--t-b); }
+  .bar-row.c .bar-score { color: var(--t-c); }
+  .bar-row.d .bar-score { color: var(--accent); }
+
+  /* === Table === */
+  .tbl { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--line); font-size: 13px; }
+  .tbl th { text-align: left; padding: var(--sp-3) var(--sp-4); background: var(--bg-elev); font-family: var(--font-mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mute); border-bottom: 1px solid var(--text); }
+  .tbl td { padding: var(--sp-3) var(--sp-4); border-bottom: 1px dotted var(--line-soft); vertical-align: top; }
+  .tbl tr:last-child td { border-bottom: none; }
+  .tbl tr:hover { background: var(--bg-hover); }
+  .tbl .rank { color: var(--text-dim); font-family: var(--font-mono); font-size: 10.5px; }
+  .tbl .name { font-weight: 500; }
+  .tbl .score { font-family: var(--font-mono); text-align: right; font-weight: 500; }
+  .tbl .score.s { color: var(--t-s); } .tbl .score.a { color: var(--t-a); } .tbl .score.b { color: var(--t-b); } .tbl .score.c { color: var(--t-c); }
+  .tbl .signal { color: var(--text-mute); font-size: 12.5px; }
+  .tbl .val { font-family: var(--font-mono); font-weight: 600; }
+  .tbl .val.bad { color: var(--accent); } .tbl .val.good { color: var(--t-b); } .tbl .val.mid { color: var(--t-c); }
+
+  /* === Competitor === */
+  .competitor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); }
+  @media (max-width: 800px) { .competitor-grid { grid-template-columns: 1fr; } }
+  .competitor { background: var(--bg-card); border: 1px solid var(--line); padding: var(--sp-5); }
+  .competitor-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--sp-3); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-soft); }
+  .competitor-name { font-size: 18px; font-weight: 600; }
+  .competitor-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); margin-bottom: var(--sp-3); font-weight: 500; }
+  .competitor .row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px dotted var(--line-soft); font-size: 13px; }
+  .competitor .row:last-child { border-bottom: none; }
+  .competitor .row .key { color: var(--text-mute); }
+  .competitor .row .val { font-family: var(--font-mono); font-weight: 600; }
+
+  /* === Persona === */
+  .persona { background: var(--bg-card); border: 1px solid var(--line); padding: 0; margin-bottom: var(--sp-4); position: relative; }
+  .persona::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--t-a); }
+  .persona.b::before { background: var(--t-b); }
+  .persona.c::before { background: var(--t-c); }
+  .persona-body { padding: var(--sp-5); }
+  .persona-head { display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: var(--sp-3); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-soft); flex-wrap: wrap; }
+  .persona-name { font-size: 17px; font-weight: 600; color: var(--text); }
+  .persona-name .en { font-family: var(--font-serif); font-style: italic; color: var(--text-mute); font-weight: 400; font-size: 14px; margin-left: var(--sp-2); }
+  .persona-role { font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); }
+  .persona-body p { margin: 6px 0; font-size: 13.5px; color: var(--text-mute); }
+  .persona-body p strong { color: var(--text); font-weight: 600; }
+  .persona-body p strong::before { content: '— '; color: var(--text-dim); }
+
+  /* === Risk Matrix === */
+  .risk-head { display: grid; grid-template-columns: 90px 1fr 90px 90px 1fr; background: var(--text); color: var(--bg); font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+  .risk-head > div { padding: 10px 14px; border-right: 1px solid var(--bg-card); }
+  .risk-head > div:last-child { border-right: none; }
+  .risk-row { display: grid; grid-template-columns: 90px 1fr 90px 90px 1fr; align-items: stretch; background: var(--bg-card); border-bottom: 1px solid var(--line); }
+  .risk-row:last-child { border-bottom: none; }
+  .risk-row:nth-child(even) { background: var(--bg); }
+  .risk-row > div { padding: 12px 14px; border-right: 1px solid var(--line-soft); font-size: 13px; display: flex; align-items: center; }
+  .risk-row > div:last-child { border-right: none; }
+  .risk-row .lvl { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; justify-content: center; }
+  .risk-row .lvl.high { color: var(--accent); }
+  .risk-row .lvl.mid { color: var(--t-c); }
+  .risk-row .lvl.low { color: var(--t-b); }
+  .risk-row .name { font-weight: 600; color: var(--text); }
+  .risk-row .prob, .risk-row .impact { font-family: var(--font-mono); font-weight: 500; color: var(--text-mute); justify-content: center; font-size: 12px; }
+  .risk-row .action { font-size: 12.5px; color: var(--text-mute); }
+
+  /* === Note / Callout === */
+  .note { background: var(--bg-card); border: 1px solid var(--line); border-left: 3px solid var(--t-a); padding: var(--sp-5); margin: var(--sp-5) 0; }
+  .note .label { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--t-a); margin-bottom: var(--sp-2); display: flex; align-items: center; gap: var(--sp-2); }
+  .note .label svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .note p { margin: 6px 0; font-size: 14px; color: var(--text); line-height: 1.7; }
+  .note p:last-child { margin-bottom: 0; }
+  .note.green { border-left-color: var(--t-b); } .note.green .label { color: var(--t-b); }
+  .note.amber { border-left-color: var(--t-c); } .note.amber .label { color: var(--t-c); }
+  .note.rose  { border-left-color: var(--accent); } .note.rose .label { color: var(--accent); }
+
+  /* === Positioning === */
+  .positioning { background: var(--text); color: var(--bg); padding: var(--sp-7) var(--sp-6); margin: var(--sp-5) 0; text-align: center; position: relative; }
+  .positioning::before { content: "POSITIONING"; position: absolute; top: -10px; left: var(--sp-5); background: var(--bg); color: var(--text); font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; padding: 3px 10px; border: 1px solid var(--text); }
+  .positioning .formula { font-family: var(--font-serif); font-size: 22px; line-height: 1.6; font-weight: 400; font-style: italic; }
+  .positioning .formula em { font-style: normal; font-weight: 600; color: var(--accent); }
+  .positioning .formula s { color: var(--text-faint); text-decoration: line-through; text-decoration-color: var(--text-faint); }
+
+  /* === Chip / Tag === */
+  .chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; font-size: 10.5px; font-family: var(--font-mono); border: 1px solid var(--line); color: var(--text-mute); background: var(--bg-card); }
+  .chip.s { color: var(--t-s); border-color: var(--t-s); background: var(--t-s-tint); }
+  .chip.a { color: var(--t-a); border-color: var(--t-a); background: var(--t-a-tint); }
+  .chip.b { color: var(--t-b); border-color: var(--t-b); background: var(--t-b-tint); }
+  .chip.c { color: var(--t-c); border-color: var(--t-c); background: var(--t-c-tint); }
+  .chip.d { color: var(--accent); border-color: var(--accent); background: var(--accent-tint); }
+  .chip.new { color: var(--accent); border-color: var(--accent); }
+
+  /* === Source card (Appendix) === */
+  .source-card { background: var(--bg-card); border: 1px solid var(--line); padding: var(--sp-5); margin-bottom: var(--sp-3); position: relative; }
+  .source-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; }
+  .source-card.t1::before { background: var(--t-s); }
+  .source-card.t2::before { background: var(--t-a); }
+  .source-card.t3::before { background: var(--t-b); }
+  .source-card.t5::before { background: var(--accent); }
+  .source-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-3); padding-bottom: var(--sp-3); border-bottom: 1px dashed var(--line); }
+  .source-name { font-size: 16px; font-weight: 600; }
+  .source-name a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-strong); transition: color 0.2s, border-color 0.2s; }
+  .source-name a:hover { color: var(--accent); border-color: var(--accent); }
+  .source-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); margin-top: 4px; }
+  .source-body { font-size: 13.5px; line-height: 1.7; }
+  .source-body p { margin: 6px 0; }
+  .source-body p strong { color: var(--text); font-weight: 600; }
+
+  .source-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
+  @media (max-width: 800px) { .source-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 500px) { .source-grid { grid-template-columns: 1fr; } }
+  .source-mini { background: var(--bg-card); border: 1px solid var(--line); padding: var(--sp-4); }
+  .source-mini .mini-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .source-mini .mini-name a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .source-mini .mini-name a:hover { color: var(--accent); border-color: var(--accent); }
+  .source-mini .mini-meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-mute); margin-bottom: var(--sp-2); }
+  .source-mini .mini-body { font-size: 12px; line-height: 1.6; color: var(--text-mute); }
+
+  /* === Lists & text === */
+  ul, ol { padding-left: 22px; color: var(--text-mute); margin-bottom: var(--sp-3); }
+  li { margin: 4px 0; } li strong { color: var(--text); font-weight: 600; }
+  p { color: var(--text); margin-bottom: var(--sp-3); }
+  p strong { color: var(--text); font-weight: 600; }
+  p em { font-family: var(--font-serif); font-style: italic; color: var(--text-mute); }
+
+  /* === Footer === */
+  footer { margin-top: var(--sp-7); padding-top: var(--sp-5); border-top: 3px double var(--text); display: grid; grid-template-columns: 1fr auto; gap: var(--sp-4); font-size: 11px; font-family: var(--font-mono); color: var(--text-dim); }
+
+  /* === Code === */
+  code { font-family: var(--font-mono); font-size: 0.88em; background: var(--bg-elev); border: 1px solid var(--line); padding: 1px 6px; color: var(--text); }
+
+  /* === Animation === */
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .rise { animation: rise 0.5s var(--ease) backwards; }
+  .rise:nth-child(1) { animation-delay: 0.04s; } .rise:nth-child(2) { animation-delay: 0.08s; }
+  .rise:nth-child(3) { animation-delay: 0.12s; } .rise:nth-child(4) { animation-delay: 0.16s; }
+  .rise:nth-child(5) { animation-delay: 0.20s; } .rise:nth-child(6) { animation-delay: 0.24s; }
+  @media (prefers-reduced-motion: reduce) { .rise, .bar-fill { animation: none; transition: none; } }
+
+  @media print { body { background: white; } }
+
+  ::selection { background: var(--text); color: var(--bg); }
+</style>
+</head>
+<body>
+
+<!-- ===== Lucide SVG Icons (24x24, stroke 2) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/></symbol>
+    <symbol id="i-trending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 7.9-1.5 12.5-7.2 17.04Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="16" x2="8" y1="9" y2="9"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.73 18l-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" x2="7.01" y1="7" y2="7"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 5 0c0 1.5-2.5 2-2.5 3.5"/><line x1="12" x2="12" y1="17" y2="17.01"/></symbol>
+  </defs>
+</svg>
+
+<div class="container">
+
+  <!-- ========================================================================
+       MASTHEAD · 双线报头
+       替换占位符:
+         {{REPORT_TITLE}}    报告主标题
+         {{REPORT_SUBTITLE}} 副标题（衬线斜体）
+         {{REPORT_DATE}}     YYYY-MM-DD
+       ====================================================================== -->
+  <header class="masthead rise">
+    <div class="masthead-eyebrow">
+      <span class="num smallcaps" style="color: var(--text)">Vol. {{VOLUME}} · No. {{ISSUE}}</span>
+      <span class="num smallcaps">Deep Research Brief · multi-agent-researcher</span>
+    </div>
+    <div class="masthead-main">
+      <h1 class="masthead-title">{{REPORT_TITLE}}<br><em>{{REPORT_SUBTITLE}}</em></h1>
+      <div class="masthead-meta">
+        <div class="num">{{REPORT_DATE}}</div>
+        <div>Reporting period · {{PERIOD}}</div>
+        <div>Coverage · {{COVERAGE}}</div>
+        <div>Sources · {{SOURCES_COUNT}}</div>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <!-- 复制 <span class="meta-item"> 块，每项 1 个，SVG icon 可选 -->
+      <span class="meta-item"><svg><use href="#i-cal"/></svg><strong>调研日期</strong> {{RESEARCH_DATES}}</span>
+      <span class="meta-item"><svg><use href="#i-target"/></svg><strong>市场</strong> {{MARKET}}</span>
+      <span class="meta-item"><svg><use href="#i-chart"/></svg><strong>11</strong> 角色协作</span>
+      <span class="meta-item"><svg><use href="#i-spark"/></svg><strong>4</strong> 阶段流水线</span>
+      <span class="meta-item"><svg><use href="#i-doc"/></svg><strong>v1.0</strong> 报告版本</span>
+      <span class="meta-item"><svg><use href="#i-shield"/></svg><strong>{{CLASSIFICATION}}</strong> 密级</span>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       CHAPTER 01 · 执行摘要
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">01 —</span>执行摘要</h2>
+      <span class="eyebrow">Executive Summary</span>
+    </div>
+
+    <!-- TODO: 1-2 段核心结论段落 -->
+    <p>{{EXEC_SUMMARY_PARAGRAPH}}</p>
+
+    <!-- 4 项关键数据卡（4 色 tier 可选） -->
+    <div class="stats">
+      <div class="stat s rise">
+        <div class="num">{{STAT1_VALUE}}<span class="unit">{{STAT1_UNIT}}</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-coin"/></svg></span>{{STAT1_LABEL}}</div>
+        <div class="delta">{{STAT1_DELTA}}</div>
+      </div>
+      <div class="stat a rise">
+        <div class="num">{{STAT2_VALUE}}<span class="unit">{{STAT2_UNIT}}</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-users"/></svg></span>{{STAT2_LABEL}}</div>
+        <div class="delta">{{STAT2_DELTA}}</div>
+      </div>
+      <div class="stat b rise">
+        <div class="num">{{STAT3_VALUE}}<span class="unit">{{STAT3_UNIT}}</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-trending"/></svg></span>{{STAT3_LABEL}}</div>
+        <div class="delta">{{STAT3_DELTA}}</div>
+      </div>
+      <div class="stat d rise">
+        <div class="num">{{STAT4_VALUE}}<span class="unit">{{STAT4_UNIT}}</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-target"/></svg></span>{{STAT4_LABEL}}</div>
+        <div class="delta down">{{STAT4_DELTA}}</div>
+      </div>
+    </div>
+
+    <!-- 定位语（黑底大字） -->
+    <div class="positioning">
+      <div class="formula">
+        不是 <s>{{NOT_X}}</s>，<br>
+        而是 <em>{{YES_Y}}</em> ——<br>
+        让人 <em>{{BENEFIT_Z}}</em>。
+      </div>
+    </div>
+
+    <!-- 行动建议（绿色 note） -->
+    <div class="note green">
+      <div class="label"><svg><use href="#i-check"/></svg> ACTION · 行动建议</div>
+      <p><strong>1.</strong> {{ACTION_1}}</p>
+      <p><strong>2.</strong> {{ACTION_2}}</p>
+      <p><strong>3.</strong> {{ACTION_3}}</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       CHAPTER 02 · 项目背景与定位命题
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">02 —</span>项目背景与定位命题</h2>
+      <span class="eyebrow">Background</span>
+    </div>
+
+    <h3 class="section-sub">2.1 基础信息</h3>
+    <p>{{BACKGROUND_BASIC}}</p>
+
+    <h3 class="section-sub">2.2 核心命题解析</h3>
+    <p>{{PROBLEMS_INTRO}}</p>
+    <ul>
+      <li><strong>{{PROBLEM_1_TITLE}}：</strong>{{PROBLEM_1_DESC}}</li>
+      <li><strong>{{PROBLEM_2_TITLE}}：</strong>{{PROBLEM_2_DESC}}</li>
+      <li><strong>{{PROBLEM_3_TITLE}}：</strong>{{PROBLEM_3_DESC}}</li>
+    </ul>
+
+    <h3 class="section-sub">2.3 关键矛盾与破局思路</h3>
+    <div class="note">
+      <div class="label"><svg><use href="#i-warn"/></svg> CORE TENSION · 核心矛盾</div>
+      <p>{{CORE_TENSION}}</p>
+    </div>
+    <p><strong>破局思路：</strong>{{BREAKTHROUGH}}</p>
+  </section>
+
+  <!-- ========================================================================
+       CHAPTER 03 · 市场分析
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">03 —</span>市场分析</h2>
+      <span class="eyebrow">Market Analysis</span>
+    </div>
+
+    <h3 class="section-sub">3.1 宏观市场数据</h3>
+    <p>{{MARKET_OVERVIEW}}</p>
+
+    <!-- 条形图（年份 + 名称 + 占比 + 分数） -->
+    <div class="chart">
+      <div class="chart-legend">
+        <span class="chart-legend-item s">市场规模 · 亿元</span>
+      </div>
+      <div class="bar-row s"><span class="bar-rank">{{YEAR_1}}</span><span class="bar-name">{{LABEL_1}}</span><div class="bar-track"><div class="bar-fill" style="width: {{PCT_1}}%"></div></div><span class="bar-score">{{VALUE_1}}</span></div>
+      <div class="bar-row s"><span class="bar-rank">{{YEAR_2}}</span><span class="bar-name">{{LABEL_2}}</span><div class="bar-track"><div class="bar-fill" style="width: {{PCT_2}}%"></div></div><span class="bar-score">{{VALUE_2}}</span></div>
+      <!-- 复制 bar-row 添加更多年份 -->
+    </div>
+
+    <h3 class="section-sub">3.2 行业现状</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:32%">细分市场</th><th>2025 规模</th><th>增速</th><th>主要玩家</th><th>判断</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{SEGMENT_1}}</td>
+          <td class="num">{{SIZE_1}}</td>
+          <td class="num">{{GROWTH_1}}</td>
+          <td>{{PLAYERS_1}}</td>
+          <td><span class="chip d">{{VERDICT_1}}</span></td>
+        </tr>
+        <!-- 复制 tr 添加更多行 -->
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">3.3 市场趋势判断</h3>
+    <div class="note green">
+      <div class="label"><svg><use href="#i-trending"/></svg> 3 KEY TRENDS</div>
+      <p><strong>1.</strong> {{TREND_1}}</p>
+      <p><strong>2.</strong> {{TREND_2}}</p>
+      <p><strong>3.</strong> {{TREND_3}}</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       CHAPTER 04 · 竞争格局分析
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">04 —</span>竞争格局分析</h2>
+      <span class="eyebrow">Competition</span>
+    </div>
+
+    <h3 class="section-sub">4.1 直接竞品分析</h3>
+    <div class="competitor-grid">
+      <div class="competitor">
+        <div class="competitor-head">
+          <div class="competitor-name">{{COMPETITOR_1_NAME}}</div>
+          <span class="chip">{{COMPETITOR_1_TAG}}</span>
+        </div>
+        <div class="competitor-meta">{{COMPETITOR_1_META}}</div>
+        <div class="row"><span class="key">{{ROW_1_KEY}}</span><span class="val {{ROW_1_VAL_CLASS}}">{{ROW_1_VAL}}</span></div>
+        <div class="row"><span class="key">{{ROW_2_KEY}}</span><span class="val {{ROW_2_VAL_CLASS}}">{{ROW_2_VAL}}</span></div>
+        <div class="row"><span class="key">{{ROW_3_KEY}}</span><span class="val">{{ROW_3_VAL}}</span></div>
+        <div class="row"><span class="key">{{ROW_4_KEY}}</span><span class="val {{ROW_4_VAL_CLASS}}">{{ROW_4_VAL}}</span></div>
+      </div>
+      <!-- 复制 .competitor 添加更多竞品（最多 4 个） -->
+    </div>
+
+    <h3 class="section-sub">4.2 竞争格局图</h3>
+    <div class="chart">
+      <div class="chart-legend">
+        <span class="chart-legend-item s">头部份额</span>
+        <span class="chart-legend-item a">第二梯队</span>
+        <span class="chart-legend-item b">新进入者</span>
+      </div>
+      <div class="bar-row s"><span class="bar-rank">001</span><span class="bar-name">{{PLAYER_1}}</span><div class="bar-track"><div class="bar-fill" style="width: {{PCT_1}}%"></div></div><span class="bar-score">{{PCT_1}}%</span></div>
+      <!-- 复制 bar-row 添加更多 -->
+    </div>
+
+    <h3 class="section-sub">4.3 机会窗口</h3>
+    <div class="note green">
+      <div class="label"><svg><use href="#i-spark"/></svg> BLUE OCEAN · 无人区识别</div>
+      <p>{{OPPORTUNITY_DESC}}</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       CHAPTER 05 · 用户洞察
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">05 —</span>用户洞察</h2>
+      <span class="eyebrow">User Insights · {{INTERVIEW_COUNT}} in-depth interviews</span>
+    </div>
+
+    <h3 class="section-sub">5.1 用户画像</h3>
+
+    <!-- 用户画像（左侧 3px 强调色条，a=蓝/b=绿/c=棕） -->
+    <div class="persona">
+      <div class="persona-body">
+        <div class="persona-head">
+          <div class="persona-name">{{PERSONA_1_NAME}} <span class="en">{{PERSONA_1_EN}}</span></div>
+          <span class="persona-role">{{PERSONA_1_ROLE}}</span>
+        </div>
+        <p><strong>核心痛点</strong> {{PERSONA_1_PAIN}}</p>
+        <p><strong>决策路径</strong> {{PERSONA_1_PATH}}</p>
+        <p><strong>付费意愿</strong> {{PERSONA_1_WILLING}}</p>
+      </div>
+    </div>
+
+    <div class="persona b">
+      <div class="persona-body">
+        <div class="persona-head">
+          <div class="persona-name">{{PERSONA_2_NAME}} <span class="en">{{PERSONA_2_EN}}</span></div>
+          <span class="persona-role">{{PERSONA_2_ROLE}}</span>
+        </div>
+        <p><strong>核心痛点</strong> {{PERSONA_2_PAIN}}</p>
+        <p><strong>决策路径</strong> {{PERSONA_2_PATH}}</p>
+        <p><strong>付费意愿</strong> {{PERSONA_2_WILLING}}</p>
+      </div>
+    </div>
+
+    <div class="persona c">
+      <div class="persona-body">
+        <div class="persona-head">
+          <div class="persona-name">{{PERSONA_3_NAME}} <span class="en">{{PERSONA_3_EN}}</span></div>
+          <span class="persona-role">{{PERSONA_3_ROLE}}</span>
+        </div>
+        <p><strong>核心痛点</strong> {{PERSONA_3_PAIN}}</p>
+        <p><strong>决策路径</strong> {{PERSONA_3_PATH}}</p>
+        <p><strong>付费意愿</strong> {{PERSONA_3_WILLING}}</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">5.2 行为路径</h3>
+    <p>{{BEHAVIOR_INTRO}}</p>
+    <ol>
+      <li><strong>{{STEP_1}}</strong>（{{TIMING_1}}）</li>
+      <li><strong>{{STEP_2}}</strong>（{{TIMING_2}}）</li>
+      <li><strong>{{STEP_3}}</strong>（{{TIMING_3}}）</li>
+    </ol>
+
+    <h3 class="section-sub">5.3 需求缺口</h3>
+    <div class="note rose">
+      <div class="label"><svg><use href="#i-warn"/></svg> UNMET NEEDS · 未满足需求</div>
+      <p><strong>1.</strong> {{UNMET_1}}</p>
+      <p><strong>2.</strong> {{UNMET_2}}</p>
+      <p><strong>3.</strong> {{UNMET_3}}</p>
+    </div>
+
+    <h3 class="section-sub">5.4 支付意愿</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>用户分层</th><th style="text-align:right">月费意愿</th><th style="text-align:right">年费预算</th><th>决策角色</th><th>决策周期</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>{{TIER_1_NAME}}</td><td class="num" style="text-align:right">{{TIER_1_MONTHLY}}</td><td class="num" style="text-align:right">{{TIER_1_YEARLY}}</td><td>{{TIER_1_DECISION}}</td><td>{{TIER_1_CYCLE}}</td></tr>
+        <!-- 复制 tr 添加更多层级 -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ========================================================================
+       CHAPTER 06 · 案例参照
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">06 —</span>案例参照</h2>
+      <span class="eyebrow">Case Studies · 2 success + 1 failure</span>
+    </div>
+
+    <h3 class="section-sub">6.1 成功案例</h3>
+
+    <div class="note green">
+      <div class="label"><svg><use href="#i-trophy"/></svg> SUCCESS · {{CASE_1_NAME}}</div>
+      <p><strong>基础信息：</strong>{{CASE_1_BASIC}}</p>
+      <p><strong>成功要素：</strong>{{CASE_1_FACTORS}}</p>
+      <p><strong>对标启示：</strong>{{CASE_1_INSIGHT}}</p>
+    </div>
+
+    <div class="note green">
+      <div class="label"><svg><use href="#i-trophy"/></svg> SUCCESS · {{CASE_2_NAME}}</div>
+      <p><strong>基础信息：</strong>{{CASE_2_BASIC}}</p>
+      <p><strong>成功要素：</strong>{{CASE_2_FACTORS}}</p>
+      <p><strong>对标启示：</strong>{{CASE_2_INSIGHT}}</p>
+    </div>
+
+    <h3 class="section-sub">6.2 失败案例</h3>
+    <div class="note rose">
+      <div class="label"><svg><use href="#i-warn"/></svg> FAILURE · {{CASE_FAIL_NAME}}</div>
+      <p><strong>失败原因：</strong>{{CASE_FAIL_REASON}}</p>
+      <p><strong>关键教训：</strong>{{CASE_FAIL_LESSON}}</p>
+    </div>
+
+    <h3 class="section-sub">6.3 案例启示</h3>
+    <ul>
+      <li><strong>最强参照：</strong>{{BEST_REF}}</li>
+      <li><strong>可复制要素：</strong>{{REPLICABLE}}</li>
+      <li><strong>需调整要素：</strong>{{ADJUST}}</li>
+    </ul>
+  </section>
+
+  <!-- ========================================================================
+       CHAPTER 07 · 战略建议
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">07 —</span>战略建议</h2>
+      <span class="eyebrow">Strategy</span>
+    </div>
+
+    <h3 class="section-sub">7.1 定位方向</h3>
+    <div class="positioning">
+      <div class="formula">
+        不是 <s>{{NOT_X}}</s>，<br>
+        而是 <em>{{YES_Y}}</em> ——<br>
+        让人 <em>{{BENEFIT_Z}}</em>。
+      </div>
+    </div>
+
+    <h3 class="section-sub">7.2 业态/产品组合</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>产品版本</th><th>目标客户</th><th>核心能力</th><th>定价</th><th>毛利率</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>{{PRODUCT_1}}</td><td>{{PRODUCT_1_TARGET}}</td><td>{{PRODUCT_1_FEATURE}}</td><td>{{PRODUCT_1_PRICE}}</td><td>—</td></tr>
+        <tr><td>{{PRODUCT_2}}</td><td>{{PRODUCT_2_TARGET}}</td><td>{{PRODUCT_2_FEATURE}}</td><td>{{PRODUCT_2_PRICE}}</td><td><span class="chip b">{{PRODUCT_2_MARGIN}}</span></td></tr>
+        <!-- 复制 tr 添加更多产品 -->
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">7.3 差异化策略</h3>
+    <div class="note">
+      <div class="label"><svg><use href="#i-bulb"/></svg> {{STRATEGY_TITLE}}</div>
+      <p><strong>1.</strong> {{STRATEGY_1}}</p>
+      <p><strong>2.</strong> {{STRATEGY_2}}</p>
+      <p><strong>3.</strong> {{STRATEGY_3}}</p>
+    </div>
+
+    <h3 class="section-sub">7.4 行动路线图</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>阶段</th><th>时间</th><th>关键里程碑</th><th>团队规模</th><th>投入</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>{{PHASE_1}}</td><td>{{PHASE_1_TIME}}</td><td>{{PHASE_1_MILESTONE}}</td><td class="num">{{PHASE_1_TEAM}}</td><td class="num">{{PHASE_1_BUDGET}}</td></tr>
+        <!-- 复制 tr 添加更多阶段 -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ========================================================================
+       CHAPTER 08 · 投资测算与风险预案
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">08 —</span>投资测算与风险预案</h2>
+      <span class="eyebrow">Investment & Risk</span>
+    </div>
+
+    <h3 class="section-sub">8.1 投资规模</h3>
+    <p>{{INVESTMENT_OVERVIEW}}</p>
+
+    <h3 class="section-sub">8.2 收入测算（保守 / 中性 / 乐观）</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>年份</th><th>保守</th><th>中性</th><th>乐观</th><th>关键假设</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">{{YEAR_1}}</td><td class="num">{{CONSERVATIVE_1}}</td><td class="num">{{NEUTRAL_1}}</td><td class="num">{{OPTIMISTIC_1}}</td><td>{{ASSUMPTION_1}}</td></tr>
+        <!-- 复制 tr 添加更多年份 -->
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">8.3 回收期预测</h3>
+    <div class="stats">
+      <div class="stat s rise">
+        <div class="num">{{BREAKEVEN}}<span class="unit">{{BREAKEVEN_UNIT}}</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-cal"/></svg></span>盈亏平衡</div>
+        <div class="delta">{{BREAKEVEN_SCENARIO}}</div>
+      </div>
+      <div class="stat b rise">
+        <div class="num">{{CASHFLOW}}<span class="unit">{{CASHFLOW_UNIT}}</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-coin"/></svg></span>累计现金流</div>
+        <div class="delta">{{CASHFLOW_PERIOD}}</div>
+      </div>
+      <div class="stat a rise">
+        <div class="num">{{ROI}}<span class="unit">x</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-zap"/></svg></span>ROI 预期</div>
+        <div class="delta">{{ROI_PERIOD}}</div>
+      </div>
+    </div>
+
+    <h3 class="section-sub">8.4 风险矩阵与应对</h3>
+    <div class="risk-head">
+      <div>LEVEL</div>
+      <div>RISK</div>
+      <div>PROB</div>
+      <div>IMPACT</div>
+      <div>MITIGATION</div>
+    </div>
+    <div class="risk-row">
+      <div class="lvl high">HIGH</div>
+      <div class="name">{{RISK_1_NAME}}</div>
+      <div class="prob">{{RISK_1_PROB}}</div>
+      <div class="impact">{{RISK_1_IMPACT}}</div>
+      <div class="action">{{RISK_1_MITIGATION}}</div>
+    </div>
+    <!-- 复制 risk-row 添加更多风险（颜色 lvl high=red, mid=棕, low=绿） -->
+
+    <div class="note amber" style="margin-top: var(--sp-6)">
+      <div class="label"><svg><use href="#i-check"/></svg> VERDICT · 整体判断</div>
+      <p><strong>{{VERDICT_TITLE}}</strong></p>
+      <p>{{VERDICT_DESC}}</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       APPENDIX A · 数据来源与说明
+       ====================================================================== -->
+  <section class="section rise" id="appendix">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">A —</span>附录 · 数据来源与说明</h2>
+      <span class="eyebrow">Appendix · Data Sources</span>
+    </div>
+
+    <p>本附录对报告中每一项关键数据的来源、可信度、关联性及解读方法进行完整披露。共引用 <strong class="num">{{TOTAL_SOURCES_COUNT}}</strong> 个外部来源 + <strong>1 项内部一手调研</strong>，按可信度分为 5 个 Tier。所有链接均为发布方官网或可公开访问的原始报告页面。</p>
+
+    <h3 class="section-sub">A.1 数据来源总览</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>层级</th><th>类型</th><th style="text-align:right">数量</th><th>在本报告中的角色</th><th>处理方式</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="chip s">TIER 1</span></td><td>政府监管 / 官方统计</td><td class="num" style="text-align:right">{{T1_COUNT}}</td><td>市场容量、开发者基数、合规框架</td><td>直接采用 · 最高权重</td></tr>
+        <tr><td><span class="chip a">TIER 2</span></td><td>权威第三方研究</td><td class="num" style="text-align:right">{{T2_COUNT}}</td><td>市场规模、CAGR、份额、集中度</td><td>交叉验证 · 主流依据</td></tr>
+        <tr><td><span class="chip b">TIER 3</span></td><td>行业研究 / 生态报告</td><td class="num" style="text-align:right">{{T3_COUNT}}</td><td>开发者行为、采用率、需求结构</td><td>支撑论证 · 中等权重</td></tr>
+        <tr><td><span class="chip c">TIER 4</span></td><td>产品官方披露 / 财报</td><td class="num" style="text-align:right">{{T4_COUNT}}</td><td>竞品能力、定价、规模自述</td><td>事实陈述 · 注明厂商口径</td></tr>
+        <tr><td><span class="chip d">TIER 5</span></td><td>媒体 / 行业访谈</td><td class="num" style="text-align:right">{{T5_COUNT}}</td><td>趋势信号、案例补全、补充背景</td><td>线索参考 · 需二次核实</td></tr>
+        <tr><td><span class="chip">TIER 0</span></td><td>本团队一手深度访谈</td><td class="num" style="text-align:right">1</td><td>客户决策路径、付费意愿、未被满足需求</td><td>唯一性证据 · 不可替代</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">A.2 Tier 1 · 官方与监管文件（最高权重）</h3>
+
+    <!-- Tier 1 来源卡（左侧 3px 紫色条 .t1） -->
+    <div class="source-card t1">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="{{SOURCE_URL}}" target="_blank" rel="noopener">{{SOURCE_TITLE}}</a></div>
+          <div class="source-meta">{{SOURCE_PUBLISHER}} · {{SOURCE_DATE}} · {{SOURCE_TYPE}}</div>
+        </div>
+        <span class="chip s">TIER 1</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>{{SUPPORTED_DATA}}</p>
+        <p><strong>为何采用：</strong>{{WHY_ADOPTED}}</p>
+        <p><strong>可信度解读：</strong>{{CREDIBILITY}}</p>
+        <p><strong>潜在偏差：</strong>{{POTENTIAL_BIAS}}</p>
+      </div>
+    </div>
+
+    <!-- 复制 source-card t1 添加更多 Tier 1 来源 -->
+
+    <h3 class="section-sub">A.3 Tier 2 · 权威第三方研究（交叉验证）</h3>
+    <div class="source-card t2">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="{{SOURCE_URL}}" target="_blank" rel="noopener">{{SOURCE_TITLE}}</a></div>
+          <div class="source-meta">{{SOURCE_PUBLISHER}} · {{SOURCE_DATE}}</div>
+        </div>
+        <span class="chip a">TIER 2</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>{{SUPPORTED_DATA}}</p>
+        <p><strong>为何采用：</strong>{{WHY_ADOPTED}}</p>
+        <p><strong>可信度解读：</strong>{{CREDIBILITY}}</p>
+        <p><strong>潜在偏差：</strong>{{POTENTIAL_BIAS}}</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.4 Tier 3 · 行业研究 / 生态报告</h3>
+    <div class="source-card t3">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="{{SOURCE_URL}}" target="_blank" rel="noopener">{{SOURCE_TITLE}}</a></div>
+          <div class="source-meta">{{SOURCE_PUBLISHER}} · {{SOURCE_DATE}}</div>
+        </div>
+        <span class="chip b">TIER 3</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>{{SUPPORTED_DATA}}</p>
+        <p><strong>为何采用：</strong>{{WHY_ADOPTED}}</p>
+        <p><strong>可信度解读：</strong>{{CREDIBILITY}}</p>
+        <p><strong>潜在偏差：</strong>{{POTENTIAL_BIAS}}</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.5 Tier 4 · 产品官方披露（事实陈述）</h3>
+    <p style="font-size: 13px; color: var(--text-mute); margin-bottom: var(--sp-3);">以下来源为厂商自述，本报告使用时已明确标注"厂商口径"，不作为关键结论的唯一依据。</p>
+
+    <!-- Tier 4 来源网格（3 列） -->
+    <div class="source-grid">
+      <div class="source-mini">
+        <div class="mini-name"><a href="{{VENDOR_URL}}" target="_blank" rel="noopener">{{VENDOR_NAME}}</a></div>
+        <div class="mini-meta">{{VENDOR_PUBLISHER}} · 厂商披露</div>
+        <div class="mini-body">{{VENDOR_DESC}}</div>
+      </div>
+      <!-- 复制 source-mini 添加更多厂商 -->
+    </div>
+
+    <h3 class="section-sub">A.6 Tier 5 · 媒体与行业访谈（线索参考）</h3>
+    <div class="source-card t5">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="{{SOURCE_URL}}" target="_blank" rel="noopener">{{SOURCE_TITLE}}</a></div>
+          <div class="source-meta">{{SOURCE_PUBLISHER}}</div>
+        </div>
+        <span class="chip d">TIER 5</span>
+      </div>
+      <div class="source-body">
+        <p><strong>用途：</strong>{{USAGE}}</p>
+        <p><strong>为何采用：</strong>{{WHY_ADOPTED}}</p>
+        <p><strong>可信度解读：</strong>{{CREDIBILITY}}</p>
+        <p><strong>潜在偏差：</strong>{{POTENTIAL_BIAS}}</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.7 Tier 0 · 本团队一手深度调研（核心证据）</h3>
+
+    <div class="note">
+      <div class="label"><svg><use href="#i-user"/></svg> PRIMARY RESEARCH · 一手访谈</div>
+      <p><strong>调研方法：</strong>{{PRIMARY_METHOD}}</p>
+      <p style="margin-bottom: var(--sp-3);"><strong>调研对象画像：</strong></p>
+      <table class="tbl" style="margin-bottom: var(--sp-3);">
+        <thead>
+          <tr><th>行业</th><th style="text-align:right">样本数</th><th>平均团队规模</th><th>已用 AI 工具</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>{{PRIMARY_INDUSTRY_1}}</td><td class="num" style="text-align:right">{{PRIMARY_SAMPLE_1}}</td><td>{{PRIMARY_TEAM_1}}</td><td>{{PRIMARY_TOOLS_1}}</td></tr>
+          <!-- 复制 tr 添加更多行业 -->
+        </tbody>
+      </table>
+      <p><strong>核心发现：</strong>{{PRIMARY_FINDINGS}}</p>
+      <p><strong>访谈资料：</strong>{{PRIMARY_LOCATION}}</p>
+    </div>
+
+    <h3 class="section-sub">A.8 数据可信度综合评估</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>数据点</th><th>使用来源</th><th>可信度</th><th>交叉验证</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>{{DATA_POINT_1}}</td><td>{{DATA_SOURCE_1}}</td><td><span class="chip b">高</span></td><td>{{DATA_VERIFY_1}}</td></tr>
+        <!-- 复制 tr 添加更多数据点 -->
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">A.9 数据使用说明</h3>
+
+    <div class="note">
+      <div class="label"><svg><use href="#i-bulb"/></svg> METHODOLOGY · 方法论</div>
+      <p><strong>1. 数据矛盾处理：</strong>{{METHOD_1}}</p>
+      <p><strong>2. 估算方法：</strong>{{METHOD_2}}</p>
+      <p><strong>3. 付费率口径：</strong>{{METHOD_3}}</p>
+      <p><strong>4. 局限性声明：</strong>{{METHOD_4}}</p>
+    </div>
+
+    <div class="note amber">
+      <div class="label"><svg><use href="#i-cal"/></svg> UPDATE POLICY · 更新政策</div>
+      <p>{{UPDATE_POLICY}}</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       APPENDIX B · 组件库（仅供参考，发布前删除）
+       本章节为组件速查表，供 Writer Agent 在填充报告时使用
+       ====================================================================== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">B —</span>组件库速查</h2>
+      <span class="eyebrow">Component Library · for Writer reference</span>
+    </div>
+
+    <p style="font-size: 13px; color: var(--text-mute);">本章节列出本模板可用的所有组件示例。Writer Agent 填充报告时直接复制对应 HTML 即可。本章节在正式发布前<strong>请删除</strong>。</p>
+
+    <h3 class="section-sub">B.1 5 种 Note 提示框</h3>
+    <div class="note">
+      <div class="label"><svg><use href="#i-bulb"/></svg> DEFAULT · 默认（蓝色）</div>
+      <p>用于一般提示、核心矛盾等</p>
+    </div>
+    <div class="note green">
+      <div class="label"><svg><use href="#i-check"/></svg> GREEN · 成功 / 行动建议</div>
+      <p>用于行动建议、机会窗口、成功案例</p>
+    </div>
+    <div class="note amber">
+      <div class="label"><svg><use href="#i-warn"/></svg> AMBER · 警告 / 整体判断</div>
+      <p>用于有条件判断、风险预警</p>
+    </div>
+    <div class="note rose">
+      <div class="label"><svg><use href="#i-warn"/></svg> ROSE · 红色 / 失败 / 严重警告</div>
+      <p>用于未满足需求、失败案例</p>
+    </div>
+
+    <h3 class="section-sub">B.2 4 种 Chip 标签</h3>
+    <p>
+      <span class="chip s">S · 核心</span>
+      <span class="chip a">A · 权威</span>
+      <span class="chip b">B · 行业</span>
+      <span class="chip c">C · 产品</span>
+      <span class="chip d">D · 风险</span>
+      <span class="chip">默认</span>
+      <span class="chip new">NEW</span>
+    </p>
+
+    <h3 class="section-sub">B.3 3 种 Persona 色条</h3>
+    <div class="persona"><div class="persona-body"><p>默认（蓝 a）— 主要用户</p></div></div>
+    <div class="persona b"><div class="persona-body"><p>b（绿）— 决策者 / B 端</p></div></div>
+    <div class="persona c"><div class="persona-body"><p>c（棕）— 长尾 / C 端</p></div></div>
+
+    <h3 class="section-sub">B.4 19 个 SVG Icon</h3>
+    <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-mute);">
+      i-cal · i-target · i-chart · i-spark · i-trending · i-trophy · i-rocket · i-sprout · i-leaf · i-link · i-doc · i-zap · i-check · i-warn · i-tag · i-user · i-users · i-bulb · i-shield · i-coin
+    </p>
+    <p style="font-size: 12px; color: var(--text-mute);">使用方式：<code>&lt;svg&gt;&lt;use href="#i-{{ICON_NAME}}"/&gt;&lt;/svg&gt;</code></p>
+
+    <h3 class="section-sub">B.5 5 种 Tier 来源卡（附录）</h3>
+    <p>左侧 3px 强调色条 + 右上角 chip 标签：</p>
+    <ul style="font-size: 13px;">
+      <li><code>.source-card.t1</code> — Tier 1 官方/监管（紫色）</li>
+      <li><code>.source-card.t2</code> — Tier 2 权威研究（蓝色）</li>
+      <li><code>.source-card.t3</code> — Tier 3 行业报告（绿色）</li>
+      <li><code>.source-card.t5</code> — Tier 5 媒体（红色）</li>
+      <li>无 t4 — Tier 4 用 3 列网格 <code>.source-grid</code></li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>
+  <div>
+    <div>本报告由 <strong>multi-agent-researcher</strong> 多 Agent 协作生成</div>
+    <div style="margin-top: 4px;">执行链路：主编调度 → 5 Scout 并行侦察 → Analyst + Critic 整合 → Writer 撰写 → 2 Reviewer 评审定稿</div>
+  </div>
+  <div style="text-align: right;">
+    <div>v{{REPORT_VERSION}} · {{REPORT_DATE}}</div>
+    <div style="margin-top: 4px;">{{REPORT_FILENAME}}</div>
+  </div>
+</footer>
+
+</body>
+</html>

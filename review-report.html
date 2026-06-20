@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>multi-agent-researcher · 技能审核报告</title>
+<style>
+  :root {
+    --glass-bg-light: rgba(255, 255, 255, 0.45);
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-bg-heavy: rgba(255, 255, 255, 0.72);
+    --glass-blur-light: blur(8px);
+    --glass-blur: blur(20px);
+    --glass-blur-strong: blur(32px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+    --glass-radius: 16px;
+    --glass-radius-lg: 24px;
+    --glass-shadow: 0 8px 32px rgba(99, 102, 241, 0.08), 0 2px 8px rgba(99, 102, 241, 0.04);
+    --glass-shadow-elevated: 0 12px 48px rgba(99, 102, 241, 0.12), 0 4px 16px rgba(99, 102, 241, 0.06);
+
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --accent-indigo: #6366f1;
+    --accent-violet: #8b5cf6;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(196, 181, 253, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(147, 197, 253, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(251, 207, 232, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 90% 90%, rgba(167, 243, 208, 0.3) 0%, transparent 50%),
+      linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    background-attachment: fixed;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  /* ===== Hero / Header ===== */
+  .hero {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius-lg);
+    padding: 56px 48px;
+    margin-bottom: 32px;
+    box-shadow: var(--glass-shadow-elevated);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-indigo), var(--accent-violet), var(--accent-rose));
+  }
+
+  .hero .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--accent-indigo);
+    text-transform: uppercase;
+    padding: 6px 14px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-violet) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+  }
+
+  .hero .meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .hero .meta span strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ===== Score Ring ===== */
+  .score-section {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius-lg);
+    padding: 48px;
+    margin-bottom: 32px;
+    box-shadow: var(--glass-shadow-elevated);
+    text-align: center;
+  }
+
+  .score-ring {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--accent-indigo) 0% 82.35%,
+      rgba(99, 102, 241, 0.12) 82.35% 100%
+    );
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px auto 24px;
+    position: relative;
+  }
+
+  .score-ring::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    background: var(--glass-bg-heavy);
+    border-radius: 50%;
+    box-shadow: inset 0 4px 12px rgba(99, 102, 241, 0.06);
+  }
+
+  .score-ring .ring-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .score-ring .ring-text .num {
+    font-size: 52px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-violet) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+
+  .score-ring .ring-text .total {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .grade-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(99, 102, 241, 0.12));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--accent-emerald);
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 999px;
+    margin-top: 8px;
+  }
+
+  .grade-badge::before {
+    content: "✓ ";
+  }
+
+  /* ===== Section ===== */
+  .section {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius-lg);
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section h2 .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+  }
+
+  .section h2 .icon.indigo { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+  .section h2 .icon.violet { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+  .section h2 .icon.emerald { background: linear-gradient(135deg, #10b981, #14b8a6); }
+  .section h2 .icon.amber { background: linear-gradient(135deg, #f59e0b, #f97316); }
+  .section h2 .icon.rose { background: linear-gradient(135deg, #f43f5e, #ec4899); }
+  .section h2 .icon.slate { background: linear-gradient(135deg, #64748b, #475569); }
+
+  .section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 24px 0 12px;
+  }
+
+  .section p {
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  /* ===== Dimensions Grid ===== */
+  .dimensions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .dim-card {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: var(--glass-blur-light);
+    -webkit-backdrop-filter: var(--glass-blur-light);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: var(--glass-radius);
+    padding: 20px;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .dim-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.1);
+  }
+
+  .dim-card .dim-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .dim-card .dim-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+
+  .dim-card .dim-score {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-violet) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dim-card .dim-bar {
+    height: 6px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .dim-card .dim-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent-indigo), var(--accent-violet));
+  }
+
+  .dim-card .dim-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ===== Priority Cards ===== */
+  .priority-group {
+    margin-bottom: 24px;
+  }
+
+  .priority-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+
+  .priority-label.p0 {
+    background: rgba(244, 63, 94, 0.1);
+    color: var(--accent-rose);
+    border: 1px solid rgba(244, 63, 94, 0.25);
+  }
+
+  .priority-label.p1 {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent-amber);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+  }
+
+  .priority-label.p2 {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-indigo);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+  }
+
+  .issue-card {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-left: 3px solid var(--accent-indigo);
+    border-radius: var(--glass-radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+
+  .issue-card.p0 { border-left-color: var(--accent-rose); }
+  .issue-card.p1 { border-left-color: var(--accent-amber); }
+  .issue-card.p2 { border-left-color: var(--accent-indigo); }
+  .issue-card.fixed {
+    border-left-color: var(--accent-emerald);
+    background: rgba(16, 185, 129, 0.06);
+  }
+
+  .issue-card .issue-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .issue-card .issue-id {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: rgba(99, 102, 241, 0.08);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .issue-card .issue-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .issue-card .issue-status.fixed {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-emerald);
+  }
+
+  .issue-card .issue-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .issue-card .issue-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .issue-card .issue-fix {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(99, 102, 241, 0.15);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .issue-card .issue-fix strong {
+    color: var(--accent-indigo);
+  }
+
+  /* ===== Strengths ===== */
+  .strengths-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .strength-item {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: var(--glass-radius);
+    padding: 16px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .strength-item .check {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--accent-emerald), #14b8a6);
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .strength-item .strength-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .strength-item .strength-text strong {
+    color: var(--text-primary);
+  }
+
+  /* ===== File Tree ===== */
+  .file-tree {
+    font-family: "SF Mono", Consolas, "Courier New", monospace;
+    font-size: 13px;
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: var(--glass-radius);
+    padding: 20px 24px;
+    color: var(--text-secondary);
+    overflow-x: auto;
+  }
+
+  .file-tree .file {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+  }
+
+  .file-tree .file .icon {
+    width: 16px;
+    text-align: center;
+  }
+
+  .file-tree .file .size {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-left: auto;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    padding: 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  footer .footer-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 24px;
+    display: inline-block;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px; }
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 28px; }
+    .section { padding: 24px 20px; }
+    .score-section { padding: 32px 20px; }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .hero, .section, .score-section, .dim-card, .issue-card, .strength-item {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: none;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <span class="eyebrow">Skill Audit Report</span>
+    <h1>multi-agent-researcher</h1>
+    <p class="subtitle">多 Agent 协作深度调研系统 · 技能质量审核报告</p>
+    <div class="meta">
+      <span>📅 <strong>2026-06-20</strong></span>
+      <span>🏷️ 版本 <strong>v1.1.0</strong></span>
+      <span>🔍 审核方 <strong>multi-agent--skills-review</strong></span>
+      <span>📁 9 个文件</span>
+    </div>
+  </header>
+
+  <!-- ===== SCORE ===== -->
+  <section class="score-section">
+    <h2 style="justify-content:center">
+      <span class="icon indigo">★</span> 综合评分
+    </h2>
+    <div class="score-ring">
+      <div class="ring-text">
+        <div class="num">82.35</div>
+        <div class="total">/ 100</div>
+      </div>
+    </div>
+    <div class="grade-badge">优秀 · 可直接发布</div>
+    <p style="margin-top: 24px; max-width: 720px; margin-left: auto; margin-right: auto;">
+      技能整体质量优秀。具备企业级深度调研的完整基础设施（11 个角色、4 阶段流水线、完整测试 / 审查 / 回归闭环）。本次审核已修复 P0 逻辑问题，其余 P1/P2 项可在下一版本迭代优化。
+    </p>
+
+    <div class="dimensions" style="margin-top: 32px;">
+      <div class="dim-card">
+        <div class="dim-head">
+          <span class="dim-name">🔒 安全性</span>
+          <span class="dim-score">85</span>
+        </div>
+        <div class="dim-bar"><div class="dim-bar-fill" style="width: 85%;"></div></div>
+        <div class="dim-meta"><span>权重 30%</span><span>加权 25.5</span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-head">
+          <span class="dim-name">🧩 逻辑性</span>
+          <span class="dim-score">75</span>
+        </div>
+        <div class="dim-bar"><div class="dim-bar-fill" style="width: 75%;"></div></div>
+        <div class="dim-meta"><span>权重 25%</span><span>加权 18.75</span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-head">
+          <span class="dim-name">🏗️ 稳定性</span>
+          <span class="dim-score">82</span>
+        </div>
+        <div class="dim-bar"><div class="dim-bar-fill" style="width: 82%;"></div></div>
+        <div class="dim-meta"><span>权重 25%</span><span>加权 20.5</span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-head">
+          <span class="dim-name">🔄 自我迭代</span>
+          <span class="dim-score">88</span>
+        </div>
+        <div class="dim-bar"><div class="dim-bar-fill" style="width: 88%;"></div></div>
+        <div class="dim-meta"><span>权重 20%</span><span>加权 17.6</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FILE STRUCTURE ===== -->
+  <section class="section">
+    <h2><span class="icon slate">📁</span> 文件结构</h2>
+    <div class="file-tree">
+      <div class="file"><span class="icon">📄</span> SKILL.md <span class="size">6.2 KB</span></div>
+      <div class="file"><span class="icon">📄</span> README.md <span class="size">6.0 KB</span></div>
+      <div class="file"><span class="icon">📊</span> grading.json <span class="size">评分档案</span></div>
+      <div class="file" style="padding-left: 20px;"><span class="icon">📂</span> references/</div>
+      <div class="file" style="padding-left: 40px;"><span class="icon">👥</span> agents.md <span class="size">11.6 KB</span></div>
+      <div class="file" style="padding-left: 40px;"><span class="icon">🔀</span> pipeline-multi-agent.md <span class="size">5.7 KB</span></div>
+      <div class="file" style="padding-left: 40px;"><span class="icon">🔍</span> scouting-templates.md <span class="size">3.2 KB</span></div>
+      <div class="file" style="padding-left: 40px;"><span class="icon">📝</span> report-templates.md <span class="size">2.5 KB</span></div>
+      <div class="file" style="padding-left: 40px;"><span class="icon">🧪</span> test_pool.md <span class="size">7.1 KB</span></div>
+      <div class="file" style="padding-left: 40px;"><span class="icon">📋</span> failure_case_log.md <span class="size">1.9 KB</span></div>
+      <div class="file" style="padding-left: 40px;"><span class="icon">✅</span> self-review-template.md <span class="size">2.5 KB</span></div>
+    </div>
+    <p style="margin-top: 16px; font-size: 14px;">
+      <strong>结构评价：</strong>✅ 完整合理 · 9 个文件覆盖主流程、配置、测试、迭代全链路
+    </p>
+  </section>
+
+  <!-- ===== ISSUES BY PRIORITY ===== -->
+  <section class="section">
+    <h2><span class="icon rose">🚨</span> 问题清单（按优先级）</h2>
+
+    <!-- P0 -->
+    <div class="priority-group">
+      <span class="priority-label p0">🔴 P0 · 必须修复</span>
+
+      <div class="issue-card fixed">
+        <div class="issue-head">
+          <span class="issue-id">LOG-001</span>
+          <span class="issue-status fixed">✓ 已修复</span>
+        </div>
+        <div class="issue-title">"10 个 Agent" vs 11 角色矛盾</div>
+        <div class="issue-desc">
+          文档反复声称"10 个专业 Agent"，但 agents.md 实际包含<strong>主编 + Scout-A/B/C/D/E + Analyst + Critic + Writer + Reviewer-A/B = 11 个角色</strong>，核心描述性矛盾。
+        </div>
+        <div class="issue-fix">
+          <strong>✅ 本次修复：</strong>SKILL.md（5 处）、README.md（3 处）、references/agents.md（1 处）、references/test_pool.md（1 处）全部更新为「11 个角色（含主编）」。
+        </div>
+      </div>
+    </div>
+
+    <!-- P1 -->
+    <div class="priority-group">
+      <span class="priority-label p1">🟡 P1 · 本迭代修复（4 项）</span>
+
+      <div class="issue-card p1">
+        <div class="issue-head">
+          <span class="issue-id">LOG-002</span>
+          <span class="issue-status" style="background: rgba(245,158,11,0.15); color: var(--accent-amber);">待修复</span>
+        </div>
+        <div class="issue-title">Not For 章节在 SKILL.md 中重复</div>
+        <div class="issue-desc">第 120-123 行和第 160-163 行内容完全一致。</div>
+        <div class="issue-fix"><strong>修复：</strong>删除第二次出现的 Not For 章节。</div>
+      </div>
+
+      <div class="issue-card p1">
+        <div class="issue-head">
+          <span class="issue-id">LOG-003 / SIT-001</span>
+          <span class="issue-status" style="background: rgba(245,158,11,0.15); color: var(--accent-amber);">待修复</span>
+        </div>
+        <div class="issue-title">失败案例数据不一致</div>
+        <div class="issue-desc">failure_case_log.md 追踪 5 个问题，test_pool.md 已发现问题追踪 9 个，两处文档数据冲突。</div>
+        <div class="issue-fix"><strong>修复：</strong>以 failure_case_log.md 为权威源，合并 test_pool.md 中的问题条目。</div>
+      </div>
+
+      <div class="issue-card p1">
+        <div class="issue-head">
+          <span class="issue-id">STA-001</span>
+          <span class="issue-status" style="background: rgba(245,158,11,0.15); color: var(--accent-amber);">待修复</span>
+        </div>
+        <div class="issue-title">非 Scout Agent 失败无明确处理</div>
+        <div class="issue-desc">Analyst / Critic / Writer / Reviewer 失败时无降级流程，仅 Scout 失败有处理。</div>
+        <div class="issue-fix">
+          <strong>修复：</strong>在错误处理章节补充降级策略：Analyst/Critic 失败→用 Scout 数据直出初稿；Writer 失败→主编接手；Reviewer 失败→跳过该评审轮次。
+        </div>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="priority-group">
+      <span class="priority-label p2">🟢 P2 · 下版本规划（4 项）</span>
+
+      <div class="issue-card p2">
+        <div class="issue-head">
+          <span class="issue-id">STA-002</span>
+          <span class="issue-status" style="background: rgba(99,102,241,0.12); color: var(--accent-indigo);">规划中</span>
+        </div>
+        <div class="issue-title">"2 分钟超时"未区分调度超时与工作超时</div>
+        <div class="issue-desc">Scout 实际工作时长为 2-3 小时，"2 分钟"应指调度超时。</div>
+      </div>
+
+      <div class="issue-card p2">
+        <div class="issue-head">
+          <span class="issue-id">STA-003</span>
+          <span class="issue-status" style="background: rgba(99,102,241,0.12); color: var(--accent-indigo);">规划中</span>
+        </div>
+        <div class="issue-title">缺少 checkpoint 持久化机制</div>
+        <div class="issue-desc">工作中断后无恢复机制，建议增加 references/sessions/ 中间产物存档。</div>
+      </div>
+
+      <div class="issue-card p2">
+        <div class="issue-head">
+          <span class="issue-id">SIT-002</span>
+          <span class="issue-status" style="background: rgba(99,102,241,0.12); color: var(--accent-indigo);">规划中</span>
+        </div>
+        <div class="issue-title">缺少 CHANGELOG.md 版本变更历史</div>
+        <div class="issue-desc">v1.0.0 → v1.1.0 变更无记录，建议新增 references/CHANGELOG.md。</div>
+      </div>
+
+      <div class="issue-card p2">
+        <div class="issue-head">
+          <span class="issue-id">SIT-003</span>
+          <span class="issue-status" style="background: rgba(99,102,241,0.12); color: var(--accent-indigo);">规划中</span>
+        </div>
+        <div class="issue-title">问题同一天"批量修复"，缺乏渐进式迭代证据</div>
+        <div class="issue-desc">5 个问题均在 2026-06-13 同一天处理，缺少时间分布与渐进性证据。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STRENGTHS ===== -->
+  <section class="section">
+    <h2><span class="icon emerald">✨</span> 优秀之处</h2>
+    <div class="strengths-list">
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>frontmatter 规范</strong>：description 以 "Use when" 开头，字符数合规，字段完整。</div>
+      </div>
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>11 角色定义清晰</strong>：agents.md 每个角色都有身份、职责、输出格式三段式。</div>
+      </div>
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>双重防循环</strong>：3 轮评审上限 + 追问 3 次上限，机制完整。</div>
+      </div>
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>数据矛盾处理</strong>：Analyst 判断 + Writer 附录说明，形成闭环。</div>
+      </div>
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>测试覆盖充分</strong>：41 条用例覆盖语法、Agent、流水线、触发词、Scout 配置、边界。</div>
+      </div>
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>9 条 RE-XXX 回归测试</strong>：覆盖 frontmatter / 触发词 / pipeline / 评审 / 错误 / 输出。</div>
+      </div>
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>自我迭代基础设施</strong>：failure_case_log + self-review-template + grading.json 三件套齐全。</div>
+      </div>
+      <div class="strength-item">
+        <span class="check">✓</span>
+        <div class="strength-text"><strong>Not For 边界清晰</strong>：明确排除法律、财务、实时新闻等不适合场景。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OPTIMIZATION ===== -->
+  <section class="section">
+    <h2><span class="icon amber">🎯</span> 优化建议（按 ROI 排序）</h2>
+    <ol style="padding-left: 24px; color: var(--text-secondary);">
+      <li style="margin-bottom: 10px;">
+        <strong style="color: var(--text-primary);">P0 → LOG-001</strong> <span style="background: rgba(16,185,129,0.12); color: var(--accent-emerald); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">✅ 已完成</span> · 高 ROI · 修正 Agent 数量描述（10 vs 11 矛盾）
+      </li>
+      <li style="margin-bottom: 10px;">
+        <strong style="color: var(--text-primary);">P1 → LOG-002</strong> · 高 ROI · 删除重复的 Not For 章节（约 1 分钟）
+      </li>
+      <li style="margin-bottom: 10px;">
+        <strong style="color: var(--text-primary);">P1 → LOG-003 / SIT-001</strong> · 中 ROI · 合并失败案例数据（约 10 分钟）
+      </li>
+      <li style="margin-bottom: 10px;">
+        <strong style="color: var(--text-primary);">P1 → STA-001</strong> · 中 ROI · 补充非 Scout Agent 失败处理（约 15 分钟）
+      </li>
+      <li style="margin-bottom: 10px;">
+        <strong style="color: var(--text-primary);">P2 → SIT-002</strong> · 低 ROI · 新增 CHANGELOG.md（约 30 分钟）
+      </li>
+      <li style="margin-bottom: 10px;">
+        <strong style="color: var(--text-primary);">P2 → STA-002 / 003</strong> · 持续优化 · 增强稳定性
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===== DELIVERABLES ===== -->
+  <section class="section">
+    <h2><span class="icon violet">📦</span> 交付物</h2>
+    <div class="strengths-list">
+      <div class="strength-item">
+        <span class="check" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">📄</span>
+        <div class="strength-text"><strong>审核报告（HTML）</strong><br><span style="font-size: 12px; color: var(--text-muted);">review-report.html · 本文件</span></div>
+      </div>
+      <div class="strength-item">
+        <span class="check" style="background: linear-gradient(135deg, #10b981, #14b8a6);">📊</span>
+        <div class="strength-text"><strong>评分档案</strong><br><span style="font-size: 12px; color: var(--text-muted);">grading.json · 82.35 分 / 优秀</span></div>
+      </div>
+      <div class="strength-item">
+        <span class="check" style="background: linear-gradient(135deg, #f59e0b, #f97316);">🔧</span>
+        <div class="strength-text"><strong>P0 修复</strong><br><span style="font-size: 12px; color: var(--text-muted);">10 处编辑 · 4 个文件</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-card">
+    <div>📋 审核工具：<strong>multi-agent--skills-review</strong></div>
+    <div style="margin-top: 6px;">由 <strong>MiniMax-M3</strong> 生成 · 2026-06-20</div>
+  </div>
+</footer>
+
+</body>
+</html>

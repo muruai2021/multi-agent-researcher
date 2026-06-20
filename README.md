@@ -42,7 +42,7 @@ Stage 4: Review & Finalization (Reviewer-A + Reviewer-B)
   Reviewer-B → Feasibility review
 ```
 
-### Agent Team (10 Agents)
+### Agent Team (11 Roles, incl. Editor-in-Chief)
 
 | Agent | Role | Core Responsibilities |
 |-------|------|----------------------|
@@ -87,7 +87,7 @@ Stage 4: Review & Finalization (Reviewer-A + Reviewer-B)
 **Multi-Agent Research** 是一个企业级深度调研解决方案。通过主编调度5个Scout并行侦察，Analyst+Critic整合质疑，Writer撰写，2个Reviewer评审定稿，实现从市场分析到可行性评估的全链路覆盖。
 
 **核心特性：**
-- 10个专业Agent各司其职
+- 11个专业Agent（含主编）各司其职
 - 4阶段流水线，6-10小时完成深度调研
 - 循环迭代直到报告达标
 - 支持多种调研类型配置
@@ -118,7 +118,7 @@ Stage 4: Review & Finalization (Reviewer-A + Reviewer-B)
   Reviewer-B → 可行性评审
 ```
 
-### Agent团队（10个Agent）
+### Agent团队（11个Agent含主编）
 
 | Agent | 身份 | 核心职责 |
 |-------|------|----------|

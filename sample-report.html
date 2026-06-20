@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 编程助手市场调研 · 2026-06-20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* === Light Editorial — Warm Paper === */
+  :root {
+    /* Surfaces */
+    --bg: #F7F4EC;
+    --bg-elev: #EFEBE0;
+    --bg-card: #FCFAF4;
+    --bg-hover: #F1ECE0;
+
+    /* Lines */
+    --line: #D9D3C2;
+    --line-strong: #B8AF96;
+    --line-soft: #E6E0CE;
+
+    /* Text */
+    --text: #1A1815;
+    --text-mute: #5C564B;
+    --text-dim: #8B8474;
+    --text-faint: #B0A998;
+
+    /* Accent — editorial red, for highlights only */
+    --accent: #B33A3A;
+    --accent-soft: #B33A3A14;
+    --accent-tint: #F8EDEC;
+
+    /* Tier palette */
+    --t-s: #4A3FB0;
+    --t-s-tint: #EFECFA;
+    --t-a: #14579A;
+    --t-a-tint: #E8EFF8;
+    --t-b: #2D6A1A;
+    --t-b-tint: #EBF3E5;
+    --t-c: #8A5510;
+    --t-c-tint: #F7EEE0;
+    --t-d: #B33A3A;
+    --t-d-tint: #F8EDEC;
+
+    /* Spacing */
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+    --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 72px;
+
+    /* Type */
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0);
+    background-size: 32px 32px;
+    background-attachment: fixed;
+  }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: var(--sp-7) var(--sp-5); }
+
+  /* === Type utilities === */
+  h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.018em; margin: 0; }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .serif { font-family: var(--font-serif); }
+  .em { font-family: var(--font-serif); font-style: italic; }
+  .eyebrow { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-mute); }
+  .smallcaps { font-variant-caps: all-small-caps; letter-spacing: 0.1em; font-size: 11px; }
+
+  /* === Masthead === */
+  .masthead {
+    border-top: 3px double var(--text);
+    border-bottom: 1px solid var(--text);
+    padding: var(--sp-5) 0 var(--sp-4);
+    margin-bottom: var(--sp-7);
+  }
+
+  .masthead-eyebrow {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: var(--sp-4);
+  }
+  .masthead-eyebrow .num { font-size: 11px; }
+
+  .masthead-main {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: var(--sp-5);
+    margin-bottom: var(--sp-4);
+  }
+
+  .masthead-title {
+    font-size: clamp(38px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    color: var(--text);
+  }
+  .masthead-title em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--text-mute); }
+
+  .masthead-meta {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    line-height: 1.7;
+  }
+  .masthead-meta .num { color: var(--text); }
+
+  .meta-bar {
+    display: flex; gap: var(--sp-5); flex-wrap: wrap;
+    margin-top: var(--sp-4);
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--line);
+  }
+  .meta-item {
+    display: flex; align-items: center; gap: var(--sp-2);
+    font-size: 12px; color: var(--text-mute);
+  }
+  .meta-item svg { width: 14px; height: 14px; stroke: currentColor; flex-shrink: 0; }
+  .meta-item strong { color: var(--text); font-weight: 600; }
+
+  /* === Section === */
+  .section { margin-bottom: var(--sp-7); }
+
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: var(--sp-5);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--text);
+  }
+  .section-title { font-size: 24px; letter-spacing: -0.02em; }
+  .section-title .num { color: var(--text-dim); font-size: 14px; margin-right: var(--sp-2); font-weight: 400; }
+
+  h3.section-sub {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin: var(--sp-5) 0 var(--sp-3);
+    padding-bottom: var(--sp-2);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  h3.section-sub:first-of-type { margin-top: 0; }
+
+  /* === Stat cards === */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-4);
+  }
+  @media (max-width: 800px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: var(--sp-5);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: currentColor; }
+  .stat .num { font-size: 48px; font-weight: 600; letter-spacing: -0.035em; line-height: 1; color: var(--text); }
+  .stat .unit { font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--text-mute); margin-left: 4px; font-weight: 400; }
+  .stat .label {
+    font-family: var(--font-serif); font-style: italic; font-size: 14px;
+    color: var(--text-mute); margin-top: var(--sp-3);
+    display: flex; align-items: center; gap: var(--sp-2);
+  }
+  .stat .glyph { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; flex-shrink: 0; }
+  .stat .glyph svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .stat .delta {
+    display: inline-block;
+    margin-top: var(--sp-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    color: var(--text);
+  }
+  .stat .delta.down { color: var(--accent); border-color: var(--accent); background: var(--accent-tint); }
+
+  .stat.s { color: var(--t-s); }     .stat.s .num, .stat.s .label { color: var(--t-s); }
+  .stat.a { color: var(--t-a); }     .stat.a .num, .stat.a .label { color: var(--t-a); }
+  .stat.b { color: var(--t-b); }     .stat.b .num, .stat.b .label { color: var(--t-b); }
+  .stat.c { color: var(--t-c); }     .stat.c .num, .stat.c .label { color: var(--t-c); }
+  .stat.d { color: var(--accent); }  .stat.d .num, .stat.d .label { color: var(--accent); }
+
+  /* === Bar chart === */
+  .chart { background: var(--bg-card); border: 1px solid var(--line); padding: var(--sp-5); }
+  .chart-legend { display: flex; gap: var(--sp-5); margin-bottom: var(--sp-4); padding-bottom: var(--sp-3); border-bottom: 1px dashed var(--line); flex-wrap: wrap; }
+  .chart-legend-item { display: flex; align-items: center; gap: var(--sp-2); font-size: 11px; font-family: var(--font-mono); color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.06em; }
+  .chart-legend-item::before { content: ''; width: 18px; height: 2px; background: currentColor; }
+  .chart-legend-item.s { color: var(--t-s); }
+  .chart-legend-item.a { color: var(--t-a); }
+  .chart-legend-item.b { color: var(--t-b); }
+  .chart-legend-item.c { color: var(--t-c); }
+
+  .bar-row { display: grid; grid-template-columns: 36px 160px 1fr 60px; align-items: center; gap: var(--sp-3); padding: 7px 0; font-size: 13px; border-bottom: 1px dotted var(--line-soft); }
+  .bar-row:last-child { border-bottom: none; }
+  .bar-rank { font-family: var(--font-mono); color: var(--text-dim); font-size: 10.5px; text-align: right; }
+  .bar-name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { height: 6px; background: var(--bg-elev); border: 1px solid var(--line-soft); position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; transition: width 0.8s var(--ease); }
+  .bar-row.s .bar-fill { background: var(--t-s); }
+  .bar-row.a .bar-fill { background: var(--t-a); }
+  .bar-row.b .bar-fill { background: var(--t-b); }
+  .bar-row.c .bar-fill { background: var(--t-c); }
+  .bar-row.d .bar-fill { background: var(--accent); }
+  .bar-score { font-family: var(--font-mono); font-weight: 500; text-align: right; color: var(--text); }
+  .bar-row.s .bar-score { color: var(--t-s); }
+  .bar-row.a .bar-score { color: var(--t-a); }
+  .bar-row.b .bar-score { color: var(--t-b); }
+  .bar-row.c .bar-score { color: var(--t-c); }
+  .bar-row.d .bar-score { color: var(--accent); }
+
+  /* === Table === */
+  .tbl { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--line); font-size: 13px; }
+  .tbl th { text-align: left; padding: var(--sp-3) var(--sp-4); background: var(--bg-elev); font-family: var(--font-mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mute); border-bottom: 1px solid var(--text); }
+  .tbl td { padding: var(--sp-3) var(--sp-4); border-bottom: 1px dotted var(--line-soft); vertical-align: top; }
+  .tbl tr:last-child td { border-bottom: none; }
+  .tbl tr:hover { background: var(--bg-hover); }
+  .tbl .rank { color: var(--text-dim); font-family: var(--font-mono); font-size: 10.5px; }
+  .tbl .name { font-weight: 500; }
+  .tbl .score { font-family: var(--font-mono); text-align: right; font-weight: 500; }
+  .tbl .score.s { color: var(--t-s); }
+  .tbl .score.a { color: var(--t-a); }
+  .tbl .score.b { color: var(--t-b); }
+  .tbl .score.c { color: var(--t-c); }
+  .tbl .signal { color: var(--text-mute); font-size: 12.5px; }
+  .tbl .val { font-family: var(--font-mono); font-weight: 600; }
+  .tbl .val.bad { color: var(--accent); }
+  .tbl .val.good { color: var(--t-b); }
+  .tbl .val.mid { color: var(--t-c); }
+
+  /* === Competitor grid (uses tbl) === */
+  .competitor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-4);
+  }
+  @media (max-width: 800px) { .competitor-grid { grid-template-columns: 1fr; } }
+
+  .competitor {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: var(--sp-5);
+  }
+  .competitor-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--sp-3); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-soft); }
+  .competitor-name { font-size: 18px; font-weight: 600; }
+  .competitor-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); margin-bottom: var(--sp-3); font-weight: 500; }
+  .competitor .row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px dotted var(--line-soft); font-size: 13px; }
+  .competitor .row:last-child { border-bottom: none; }
+  .competitor .row .key { color: var(--text-mute); }
+  .competitor .row .val { font-family: var(--font-mono); font-weight: 600; }
+
+  /* === Persona === */
+  .persona {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 0;
+    margin-bottom: var(--sp-4);
+    position: relative;
+  }
+  .persona::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--t-a); }
+  .persona.b::before { background: var(--t-b); }
+  .persona.c::before { background: var(--t-c); }
+  .persona-body { padding: var(--sp-5); }
+  .persona-head { display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: var(--sp-3); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-soft); flex-wrap: wrap; }
+  .persona-name { font-size: 17px; font-weight: 600; color: var(--text); }
+  .persona-name .en { font-family: var(--font-serif); font-style: italic; color: var(--text-mute); font-weight: 400; font-size: 14px; margin-left: var(--sp-2); }
+  .persona-role { font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); }
+  .persona-body p { margin: 6px 0; font-size: 13.5px; color: var(--text-mute); }
+  .persona-body p strong { color: var(--text); font-weight: 600; }
+  .persona-body p strong::before { content: '— '; color: var(--text-dim); }
+
+  /* === Risk Matrix === */
+  .risk-head {
+    display: grid;
+    grid-template-columns: 90px 1fr 90px 90px 1fr;
+    background: var(--text);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .risk-head > div { padding: 10px 14px; border-right: 1px solid var(--bg-card); }
+  .risk-head > div:last-child { border-right: none; }
+
+  .risk-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 90px 90px 1fr;
+    align-items: stretch;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--line);
+  }
+  .risk-row:last-child { border-bottom: none; }
+  .risk-row:nth-child(even) { background: var(--bg); }
+  .risk-row > div { padding: 12px 14px; border-right: 1px solid var(--line-soft); font-size: 13px; display: flex; align-items: center; }
+  .risk-row > div:last-child { border-right: none; }
+
+  .risk-row .lvl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    justify-content: center;
+  }
+  .risk-row .lvl.high { color: var(--accent); }
+  .risk-row .lvl.mid { color: var(--t-c); }
+  .risk-row .lvl.low { color: var(--t-b); }
+
+  .risk-row .name { font-weight: 600; color: var(--text); }
+  .risk-row .prob, .risk-row .impact { font-family: var(--font-mono); font-weight: 500; color: var(--text-mute); justify-content: center; font-size: 12px; }
+  .risk-row .action { font-size: 12.5px; color: var(--text-mute); }
+
+  /* === Highlight (notes / callouts) === */
+  .note {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--t-a);
+    padding: var(--sp-5);
+    margin: var(--sp-5) 0;
+  }
+  .note .label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--t-a);
+    margin-bottom: var(--sp-2);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+  .note .label svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .note p { margin: 6px 0; font-size: 14px; color: var(--text); line-height: 1.7; }
+  .note p:last-child { margin-bottom: 0; }
+  .note.green { border-left-color: var(--t-b); }
+  .note.green .label { color: var(--t-b); }
+  .note.amber { border-left-color: var(--t-c); }
+  .note.amber .label { color: var(--t-c); }
+  .note.rose { border-left-color: var(--accent); }
+  .note.rose .label { color: var(--accent); }
+
+  /* === Positioning statement === */
+  .positioning {
+    background: var(--text);
+    color: var(--bg);
+    padding: var(--sp-7) var(--sp-6);
+    margin: var(--sp-5) 0;
+    text-align: center;
+    position: relative;
+  }
+  .positioning::before {
+    content: "POSITIONING";
+    position: absolute;
+    top: -10px;
+    left: var(--sp-5);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    padding: 3px 10px;
+    border: 1px solid var(--text);
+  }
+  .positioning .formula {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.6;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .positioning .formula em { font-style: normal; font-weight: 600; color: var(--accent); }
+  .positioning .formula s { color: var(--text-faint); text-decoration: line-through; text-decoration-color: var(--text-faint); }
+
+  /* === Chip / Tag === */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-size: 10.5px;
+    font-family: var(--font-mono);
+    border: 1px solid var(--line);
+    color: var(--text-mute);
+    background: var(--bg-card);
+  }
+  .chip.s { color: var(--t-s); border-color: var(--t-s); background: var(--t-s-tint); }
+  .chip.a { color: var(--t-a); border-color: var(--t-a); background: var(--t-a-tint); }
+  .chip.b { color: var(--t-b); border-color: var(--t-b); background: var(--t-b-tint); }
+  .chip.c { color: var(--t-c); border-color: var(--t-c); background: var(--t-c-tint); }
+  .chip.d { color: var(--accent); border-color: var(--accent); background: var(--accent-tint); }
+  .chip.new { color: var(--accent); border-color: var(--accent); }
+
+  /* === Evidence links === */
+  .ev-link {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .ev-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* === Source card (Appendix) === */
+  .source-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: var(--sp-5);
+    margin-bottom: var(--sp-3);
+    position: relative;
+  }
+  .source-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; }
+  .source-card.t1::before { background: var(--t-s); }
+  .source-card.t2::before { background: var(--t-a); }
+  .source-card.t3::before { background: var(--t-b); }
+  .source-card.t5::before { background: var(--accent); }
+  .source-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-4); margin-bottom: var(--sp-3); padding-bottom: var(--sp-3); border-bottom: 1px dashed var(--line); }
+  .source-name { font-size: 16px; font-weight: 600; }
+  .source-name a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .source-name a:hover { color: var(--accent); border-color: var(--accent); }
+  .source-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); margin-top: 4px; }
+
+  .source-body { font-size: 13.5px; line-height: 1.7; }
+  .source-body p { margin: 6px 0; }
+  .source-body p strong { color: var(--text); font-weight: 600; }
+
+  /* === Source grid (Tier 4) === */
+  .source-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-3);
+  }
+  @media (max-width: 800px) { .source-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 500px) { .source-grid { grid-template-columns: 1fr; } }
+
+  .source-mini {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: var(--sp-4);
+  }
+  .source-mini .mini-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .source-mini .mini-name a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+  .source-mini .mini-name a:hover { color: var(--accent); border-color: var(--accent); }
+  .source-mini .mini-meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-mute); margin-bottom: var(--sp-2); }
+  .source-mini .mini-body { font-size: 12px; line-height: 1.6; color: var(--text-mute); }
+
+  /* === Lists === */
+  ul, ol { padding-left: 22px; color: var(--text-mute); margin-bottom: var(--sp-3); }
+  li { margin: 4px 0; }
+  li strong { color: var(--text); font-weight: 600; }
+  p { color: var(--text); margin-bottom: var(--sp-3); }
+  p strong { color: var(--text); font-weight: 600; }
+  p em { font-family: var(--font-serif); font-style: italic; color: var(--text-mute); }
+
+  /* === Footer === */
+  footer {
+    margin-top: var(--sp-7);
+    padding-top: var(--sp-5);
+    border-top: 3px double var(--text);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--sp-4);
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+  }
+
+  /* === Inline path === */
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    color: var(--text);
+  }
+
+  /* === Animation === */
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .rise { animation: rise 0.5s var(--ease) backwards; }
+  .rise:nth-child(1) { animation-delay: 0.04s; }
+  .rise:nth-child(2) { animation-delay: 0.08s; }
+  .rise:nth-child(3) { animation-delay: 0.12s; }
+  .rise:nth-child(4) { animation-delay: 0.16s; }
+  .rise:nth-child(5) { animation-delay: 0.20s; }
+  .rise:nth-child(6) { animation-delay: 0.24s; }
+  @media (prefers-reduced-motion: reduce) { .rise, .bar-fill { animation: none; transition: none; } }
+
+  @media print {
+    body { background: white; }
+    .topic:hover, .tier-card:hover, .competitor:hover, .persona:hover, .source-card:hover { transform: none; box-shadow: none; }
+  }
+
+  ::selection { background: var(--text); color: var(--bg); }
+</style>
+</head>
+<body>
+
+<!-- ===== Lucide SVG Icons (24x24, stroke 2) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/></symbol>
+    <symbol id="i-trending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 7.9-1.5 12.5-7.2 17.04Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="16" x2="8" y1="9" y2="9"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.73 18l-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></symbol>
+    <symbol id="i-rss" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" x2="7.01" y1="7" y2="7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 5 0c0 1.5-2.5 2-2.5 3.5"/><line x1="12" x2="12" y1="17" y2="17.01"/></symbol>
+  </defs>
+</svg>
+
+<div class="container">
+
+  <!-- ========== MASTHEAD ========== -->
+  <header class="masthead rise">
+    <div class="masthead-eyebrow">
+      <span class="num smallcaps" style="color: var(--text)">Vol. 1 · No. 1</span>
+      <span class="num smallcaps">Deep Research Brief · multi-agent-researcher</span>
+    </div>
+    <div class="masthead-main">
+      <h1 class="masthead-title">AI 编程助手<br><em>中国市场 · 深度调研</em></h1>
+      <div class="masthead-meta">
+        <div class="num">2026-06-20</div>
+        <div>Reporting period · 6 weeks</div>
+        <div>Coverage · 11 agents</div>
+        <div>Sources · 23+1 primary</div>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <span class="meta-item"><svg><use href="#i-cal"/></svg><strong>调研日期</strong> 2026-04-15 → 06-20</span>
+      <span class="meta-item"><svg><use href="#i-target"/></svg><strong>市场</strong> 中国开发者 (中型企业优先)</span>
+      <span class="meta-item"><svg><use href="#i-chart"/></svg><strong>11</strong> 角色协作</span>
+      <span class="meta-item"><svg><use href="#i-spark"/></svg><strong>4</strong> 阶段流水线</span>
+      <span class="meta-item"><svg><use href="#i-doc"/></svg><strong>v1.0</strong> 报告版本</span>
+      <span class="meta-item"><svg><use href="#i-shield"/></svg><strong>内部决策</strong> 密级</span>
+    </div>
+  </header>
+
+  <!-- ========== 01 EXECUTIVE SUMMARY ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">01 —</span>执行摘要</h2>
+      <span class="eyebrow">Executive Summary</span>
+    </div>
+
+    <p>AI 编程助手中国市场处于 <strong>高速增长 + 高度分散</strong> 的双重阶段：2025 年市场规模 <strong class="num">28.6 亿元</strong>，CAGR <strong class="num">41.2%</strong>，但 CR3 不足 <strong class="num">45%</strong>，且无产品同时在 <em>中文语义理解、私有化部署、IDE 深度集成</em> 三个维度建立壁垒。这是本项目最具确定性的机会窗口。</p>
+
+    <div class="stats">
+      <div class="stat s rise">
+        <div class="num">28.6<span class="unit">亿</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-coin"/></svg></span>市场规模 2025</div>
+        <div class="delta">+41.2% YoY</div>
+      </div>
+      <div class="stat a rise">
+        <div class="num">940<span class="unit">万</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-users"/></svg></span>开发者规模</div>
+        <div class="delta">+8.4% YoY</div>
+      </div>
+      <div class="stat b rise">
+        <div class="num">7.8<span class="unit">%</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-trending"/></svg></span>付费转化率</div>
+        <div class="delta">+2.1pp YoY</div>
+      </div>
+      <div class="stat d rise">
+        <div class="num">42.3<span class="unit">%</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-target"/></svg></span>CR3 集中度</div>
+        <div class="delta down">−3.8pp YoY</div>
+      </div>
+    </div>
+
+    <div class="positioning">
+      <div class="formula">
+        不是 <s>通用 AI 编程助手</s>，<br>
+        而是 <em>中文开发者的智能副驾</em> ——<br>
+        让人 <em>专注创造而非记忆语法</em>。
+      </div>
+    </div>
+
+    <div class="note green">
+      <div class="label"><svg><use href="#i-check"/></svg> ACTION · 行动建议</div>
+      <p><strong>1.</strong> 优先攻占中型研发团队（50-500 人）：付费意愿强、合规要求高、海外产品覆盖不足。</p>
+      <p><strong>2.</strong> 押注中文代码语料 + 中文注释/Commit Message：构成 12-18 个月的数据护城河窗口期。</p>
+      <p><strong>3.</strong> 避开 C 端价格战：聚焦企业版 ARPU 2000 元/月以上，毛利稳定 70%+。</p>
+    </div>
+  </section>
+
+  <!-- ========== 02 BACKGROUND ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">02 —</span>项目背景与定位命题</h2>
+      <span class="eyebrow">Background</span>
+    </div>
+
+    <h3 class="section-sub">2.1 基础信息</h3>
+    <p>本项目为某 AI 公司 2026 年度的产品立项，目标是在 18 个月内推出面向中国开发者的 AI 编程助手产品，初期聚焦企业级市场。</p>
+
+    <h3 class="section-sub">2.2 核心命题解析</h3>
+    <p>三个核心命题需要被验证：</p>
+    <ul>
+      <li><strong>需求命题：</strong>中国开发者对"非英语环境优化"的 AI 编程助手是否有真实需求？</li>
+      <li><strong>差异命题：</strong>相对于 GitHub Copilot、通义灵码、CodeGeeX，差异化壁垒是什么？</li>
+      <li><strong>商业命题：</strong>在低 ARPU 市场（C 端 30 元/月起），如何构建可持续商业模式？</li>
+    </ul>
+
+    <h3 class="section-sub">2.3 关键矛盾与破局思路</h3>
+    <div class="note">
+      <div class="label"><svg><use href="#i-warn"/></svg> CORE TENSION · 核心矛盾</div>
+      <p>海外巨头（Copilot）拥有"技术 + 生态"双优势，国产大厂（通义灵码）拥有"模型 + 渠道"双优势；中小创业公司如何在夹缝中生存？</p>
+    </div>
+    <p><strong>破局思路：</strong>放弃"通用能力对标"，转而构建<em>"中文语境 + 企业合规 + IDE 深度"</em>三个垂直护城河，将巨头的"广度优势"转化为"深度劣势"。</p>
+  </section>
+
+  <!-- ========== 03 MARKET ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">03 —</span>市场分析</h2>
+      <span class="eyebrow">Market Analysis</span>
+    </div>
+
+    <h3 class="section-sub">3.1 宏观市场数据</h3>
+    <p>2025 年中国 AI 编程助手市场规模为 <strong class="num">28.6 亿元</strong>，预计 2026-2028 年 CAGR 维持在 35-42% 之间，2028 年市场规模将突破 80 亿元。</p>
+
+    <div class="chart">
+      <div class="chart-legend">
+        <span class="chart-legend-item s">市场规模 · 亿元</span>
+      </div>
+      <div class="bar-row s"><span class="bar-rank">2023</span><span class="bar-name">历史基准</span><div class="bar-track"><div class="bar-fill" style="width: 20%"></div></div><span class="bar-score">8.4</span></div>
+      <div class="bar-row s"><span class="bar-rank">2024</span><span class="bar-name">高速增长期</span><div class="bar-track"><div class="bar-fill" style="width: 50%"></div></div><span class="bar-score">20.2</span></div>
+      <div class="bar-row s"><span class="bar-rank">2025</span><span class="bar-name">当前基期</span><div class="bar-track"><div class="bar-fill" style="width: 71%"></div></div><span class="bar-score">28.6</span></div>
+      <div class="bar-row s"><span class="bar-rank">2026E</span><span class="bar-name">预测</span><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="bar-score">41.2</span></div>
+    </div>
+
+    <h3 class="section-sub">3.2 行业现状</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:32%">细分市场</th><th>2025 规模</th><th>增速</th><th>主要玩家</th><th>判断</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>个人开发者</td>
+          <td class="num">9.2 亿</td>
+          <td class="num">+32%</td>
+          <td>Copilot、通义灵码</td>
+          <td><span class="chip d">红海</span></td>
+        </tr>
+        <tr>
+          <td>中小企业（&lt;50 人）</td>
+          <td class="num">6.8 亿</td>
+          <td class="num">+45%</td>
+          <td>CodeGeeX、Cursor</td>
+          <td><span class="chip c">混战</span></td>
+        </tr>
+        <tr>
+          <td>中型企业（50-500 人）</td>
+          <td class="num">8.4 亿</td>
+          <td class="num">+58%</td>
+          <td>Copilot Business、腾讯 AI</td>
+          <td><span class="chip b">机会</span></td>
+        </tr>
+        <tr>
+          <td>大型企业（&gt;500 人）</td>
+          <td class="num">4.2 亿</td>
+          <td class="num">+38%</td>
+          <td>私有化部署厂商</td>
+          <td><span class="chip s">壁垒</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">3.3 市场趋势判断</h3>
+    <div class="note green">
+      <div class="label"><svg><use href="#i-trending"/></svg> 3 KEY TRENDS</div>
+      <p><strong>1. 从 IDE 插件到 IDE 内核：</strong>Cursor 模式验证了"AI 原生 IDE"路径，VSCode 插件形态可能在 2-3 年内被边缘化。</p>
+      <p><strong>2. 从代码补全到 Agent 化：</strong>2026 年起，"按任务完成"取代"按行补全"成为主要交互方式。</p>
+      <p><strong>3. 私有化部署成为大型企业准入门槛：</strong>占比从 2024 年的 18% 升至 2025 年的 31%。</p>
+    </div>
+  </section>
+
+  <!-- ========== 04 COMPETITION ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">04 —</span>竞争格局分析</h2>
+      <span class="eyebrow">Competition</span>
+    </div>
+
+    <h3 class="section-sub">4.1 直接竞品分析</h3>
+    <div class="competitor-grid">
+      <div class="competitor">
+        <div class="competitor-head">
+          <div class="competitor-name">GitHub Copilot</div>
+          <span class="chip">海外</span>
+        </div>
+        <div class="competitor-meta">2022 上市 · 150 万付费用户</div>
+        <div class="row"><span class="key">中文支持</span><span class="val bad">弱</span></div>
+        <div class="row"><span class="key">私有化部署</span><span class="val bad">不支持</span></div>
+        <div class="row"><span class="key">中国区定价</span><span class="val">$19/月</span></div>
+        <div class="row"><span class="key">主要短板</span><span class="val bad">合规 + 网络</span></div>
+      </div>
+      <div class="competitor">
+        <div class="competitor-head">
+          <div class="competitor-name">通义灵码</div>
+          <span class="chip a">大厂</span>
+        </div>
+        <div class="competitor-meta">2023 上市 · 阿里云通义</div>
+        <div class="row"><span class="key">中文支持</span><span class="val good">强</span></div>
+        <div class="row"><span class="key">私有化部署</span><span class="val good">支持</span></div>
+        <div class="row"><span class="key">中国区定价</span><span class="val">¥39-199/月</span></div>
+        <div class="row"><span class="key">主要短板</span><span class="val mid">模型单一</span></div>
+      </div>
+      <div class="competitor">
+        <div class="competitor-head">
+          <div class="competitor-name">CodeGeeX</div>
+          <span class="chip b">创业</span>
+        </div>
+        <div class="competitor-meta">2023 上市 · 智谱 AI 出品</div>
+        <div class="row"><span class="key">中文支持</span><span class="val good">强</span></div>
+        <div class="row"><span class="key">私有化部署</span><span class="val good">支持</span></div>
+        <div class="row"><span class="key">中国区定价</span><span class="val">免费 + 增值</span></div>
+        <div class="row"><span class="key">主要短板</span><span class="val mid">C 端为主</span></div>
+      </div>
+      <div class="competitor">
+        <div class="competitor-head">
+          <div class="competitor-name">Cursor</div>
+          <span class="chip c">新型 IDE</span>
+        </div>
+        <div class="competitor-meta">2023 上市 · AI 原生 IDE</div>
+        <div class="row"><span class="key">中文支持</span><span class="val mid">中</span></div>
+        <div class="row"><span class="key">私有化部署</span><span class="val bad">不支持</span></div>
+        <div class="row"><span class="key">中国区定价</span><span class="val">$20/月</span></div>
+        <div class="row"><span class="key">主要短板</span><span class="val mid">本土化</span></div>
+      </div>
+    </div>
+
+    <h3 class="section-sub">4.2 竞争格局图</h3>
+    <div class="chart">
+      <div class="chart-legend">
+        <span class="chart-legend-item s">头部份额</span>
+        <span class="chart-legend-item a">第二梯队</span>
+        <span class="chart-legend-item b">新进入者</span>
+      </div>
+      <div class="bar-row s"><span class="bar-rank">001</span><span class="bar-name">GitHub Copilot</span><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="bar-score">28.4%</span></div>
+      <div class="bar-row s"><span class="bar-rank">002</span><span class="bar-name">通义灵码</span><div class="bar-track"><div class="bar-fill" style="width: 56%"></div></div><span class="bar-score">15.9%</span></div>
+      <div class="bar-row a"><span class="bar-rank">003</span><span class="bar-name">Cursor</span><div class="bar-track"><div class="bar-fill" style="width: 30%"></div></div><span class="bar-score">8.5%</span></div>
+      <div class="bar-row a"><span class="bar-rank">004</span><span class="bar-name">CodeGeeX</span><div class="bar-track"><div class="bar-fill" style="width: 24%"></div></div><span class="bar-score">6.8%</span></div>
+      <div class="bar-row b"><span class="bar-rank">005</span><span class="bar-name">腾讯 AI 助手</span><div class="bar-track"><div class="bar-fill" style="width: 18%"></div></div><span class="bar-score">5.1%</span></div>
+      <div class="bar-row b"><span class="bar-rank">006</span><span class="bar-name">其他长尾</span><div class="bar-track"><div class="bar-fill" style="width: 60%"></div></div><span class="bar-score">35.3%</span></div>
+    </div>
+
+    <h3 class="section-sub">4.3 机会窗口</h3>
+    <div class="note green">
+      <div class="label"><svg><use href="#i-spark"/></svg> BLUE OCEAN · 无人区识别</div>
+      <p>在<em>「中文理解能力强 + 私有化部署 + 中型企业（50-500 人）服务能力」</em>三维交叉的象限内，<strong>当前市场空白</strong>。通义灵码覆盖大客户但中小企业服务能力弱；CodeGeeX 偏 C 端；Copilot 缺合规能力。</p>
+    </div>
+  </section>
+
+  <!-- ========== 05 USERS ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">05 —</span>用户洞察</h2>
+      <span class="eyebrow">User Insights · 12 in-depth interviews</span>
+    </div>
+
+    <h3 class="section-sub">5.1 用户画像</h3>
+
+    <div class="persona">
+      <div class="persona-body">
+        <div class="persona-head">
+          <div class="persona-name">张工 <span class="en">Tech Lead</span></div>
+          <span class="persona-role">32 岁 / 8 年经验 / 团队 30 人 / 月薪 35K</span>
+        </div>
+        <p><strong>核心痛点</strong> 团队代码规范难统一，新人产出质量参差，资深工程师 30% 时间在 review 重复性问题。</p>
+        <p><strong>决策路径</strong> 老板要求降本增效 → 主动调研 AI 工具 → 试用 2-3 款 → 选 1 款企业版 → 推动团队使用。</p>
+        <p><strong>付费意愿</strong> 2 万元/年以内无需特别审批，关键看是否能通过合规审查。</p>
+      </div>
+    </div>
+
+    <div class="persona b">
+      <div class="persona-body">
+        <div class="persona-head">
+          <div class="persona-name">李工 <span class="en">FinTech Architect</span></div>
+          <span class="persona-role">38 岁 / 14 年经验 / 团队 80 人 / 月薪 60K</span>
+        </div>
+        <p><strong>核心痛点</strong> 代码不能上云（合规），但团队效率被海外工具的"水土不服"拖累。</p>
+        <p><strong>决策路径</strong> 合规要求 → 排除 Copilot → 评估国产方案 → 优先私有化部署 → 选 1 款长期合作。</p>
+        <p><strong>付费意愿</strong> 20 万元/年起，关键看私有化方案成熟度与服务商背景。</p>
+      </div>
+    </div>
+
+    <div class="persona c">
+      <div class="persona-body">
+        <div class="persona-head">
+          <div class="persona-name">小王 <span class="en">Indie Developer</span></div>
+          <span class="persona-role">26 岁 / 3 年经验 / 个人接单 / 月入 1.5-3 万</span>
+        </div>
+        <p><strong>核心痛点</strong> 独立完成 5-6 个项目，70% 时间在写重复的 CRUD 代码。</p>
+        <p><strong>决策路径</strong> 看到推荐 → 试用免费版 → 升级 Pro 版（30-100 元/月）。</p>
+        <p><strong>付费意愿</strong> 60 元/月封顶，主要看生成质量，对品牌不敏感。</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">5.2 行为路径</h3>
+    <p>从需求触发到最终付费，用户平均经历 <strong class="num">3.2 周</strong>，关键决策节点在「团队试用第 5-7 天」：</p>
+    <ol>
+      <li><strong>需求触发</strong>（D1）：效率瓶颈、领导要求、竞品压力</li>
+      <li><strong>信息获取</strong>（D2-D4）：同事推荐、技术博客、对比测评</li>
+      <li><strong>试用评估</strong>（D5-D14）：通常试 2-3 款，关注生成质量与 IDE 兼容性</li>
+      <li><strong>决策形成</strong>（D15-D21）：价格、合规、团队规模匹配度</li>
+      <li><strong>付费转化</strong>（D22+）：从个人试用 → 团队批量采购</li>
+    </ol>
+
+    <h3 class="section-sub">5.3 需求缺口</h3>
+    <div class="note rose">
+      <div class="label"><svg><use href="#i-warn"/></svg> UNMET NEEDS · 未满足需求 TOP 3</div>
+      <p><strong>1. 中文业务场景理解：</strong>现有产品对"订单状态变更"、"支付回调"等中文业务逻辑生成质量差。</p>
+      <p><strong>2. 合规审计追踪：</strong>金融、政务客户需要 AI 生成的代码可追溯、可审计、可回滚。</p>
+      <p><strong>3. 内部知识库连接：</strong>希望 AI 助手能基于团队既有代码库、内部文档给出建议。</p>
+    </div>
+
+    <h3 class="section-sub">5.4 支付意愿</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>用户分层</th><th style="text-align:right">月费意愿</th><th style="text-align:right">年费预算</th><th>决策角色</th><th>决策周期</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>个人开发者</td><td class="num" style="text-align:right">≤60 元</td><td class="num" style="text-align:right">≤720 元</td><td>本人</td><td>1-2 周</td></tr>
+        <tr><td>小团队（&lt;10 人）</td><td class="num" style="text-align:right">500-1500 元</td><td class="num" style="text-align:right">6K-1.8 万</td><td>技术负责人</td><td>2-4 周</td></tr>
+        <tr><td>中型团队（10-100 人）</td><td class="num" style="text-align:right">5K-2 万</td><td class="num" style="text-align:right">6-24 万</td><td>CTO + 采购</td><td>4-8 周</td></tr>
+        <tr><td>大型团队（&gt;100 人）</td><td class="num" style="text-align:right">5 万+</td><td class="num" style="text-align:right">60 万+</td><td>CIO + 合规 + 采购</td><td>3-6 月</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ========== 06 CASES ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">06 —</span>案例参照</h2>
+      <span class="eyebrow">Case Studies · 2 success + 1 failure</span>
+    </div>
+
+    <h3 class="section-sub">6.1 成功案例</h3>
+
+    <div class="note green">
+      <div class="label"><svg><use href="#i-trophy"/></svg> SUCCESS · CURSOR（AI 原生 IDE 路径）</div>
+      <p><strong>基础信息：</strong>2023 年成立，ARR 突破 1 亿美元，估值 25 亿美元（2025 年 B 轮）。</p>
+      <p><strong>成功要素：</strong>① AI-First IDE（非插件），体验差异化；② 模型无关架构（用户可切换 Claude/GPT）；③ 极致的产品打磨（启动速度、Tab 键体验）。</p>
+      <p><strong>对标启示：</strong>插件路径在 2-3 年内可能边缘化，新进入者应考虑 AI 原生形态。</p>
+    </div>
+
+    <div class="note green">
+      <div class="label"><svg><use href="#i-trophy"/></svg> SUCCESS · TABNINE（企业级隐私优先路径）</div>
+      <p><strong>基础信息：</strong>2013 年成立，付费用户 100 万+，估值 4 亿美元。</p>
+      <p><strong>成功要素：</strong>① 早期押注"本地化推理"满足合规需求；② 个人版获客 → 企业版转化路径成熟；③ 与大厂（Atlassian、GitLab）合作扩大触达。</p>
+      <p><strong>对标启示：</strong>隐私优先在企业市场具有强溢价能力，本项目应将"私有化部署"作为核心卖点。</p>
+    </div>
+
+    <h3 class="section-sub">6.2 失败案例</h3>
+    <div class="note rose">
+      <div class="label"><svg><use href="#i-warn"/></svg> FAILURE · KITE（早期 AI 编程助手）</div>
+      <p><strong>失败原因：</strong>2013 年上市，2023 年宣布关停。核心死因：① 押注"免费 + 增值"模式，C 端付费转化率仅 4%；② 模型迭代慢于 Copilot；③ 失去开发者社区信任。</p>
+      <p><strong>关键教训：</strong>模型能力是 AI 编程助手的"门票"，不可与 GPT-4 拉开代差；C 端付费意愿低，应优先 B 端。</p>
+    </div>
+
+    <h3 class="section-sub">6.3 案例启示</h3>
+    <ul>
+      <li><strong>最强参照：</strong>Tabnine（相似度 78%），可借鉴其 B 端转化与合规策略。</li>
+      <li><strong>可复制要素：</strong>本地化模型选项、严格隐私承诺、企业级管理后台。</li>
+      <li><strong>需调整要素：</strong>Tabnine 不区分语种，本项目应强化中文理解作为差异点。</li>
+    </ul>
+  </section>
+
+  <!-- ========== 07 STRATEGY ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">07 —</span>战略建议</h2>
+      <span class="eyebrow">Strategy</span>
+    </div>
+
+    <h3 class="section-sub">7.1 定位方向</h3>
+    <div class="positioning">
+      <div class="formula">
+        不是 <s>通用 AI 编程助手</s>，<br>
+        而是 <em>中文开发者的智能副驾</em> ——<br>
+        让人 <em>专注创造而非记忆语法</em>。
+      </div>
+    </div>
+
+    <h3 class="section-sub">7.2 业态/产品组合</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>产品版本</th><th>目标客户</th><th>核心能力</th><th>定价</th><th>毛利率</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>个人免费版</td><td>个人开发者</td><td>基础补全 + 单文件生成</td><td>免费</td><td>—</td></tr>
+        <tr><td>个人 Pro 版</td><td>独立开发者</td><td>多文件生成 + Agent 任务</td><td>¥60/月</td><td><span class="chip b">72%</span></td></tr>
+        <tr><td>团队版</td><td>10-100 人团队</td><td>团队管理 + 代码规范</td><td>¥1.2 万/年/人</td><td><span class="chip b">78%</span></td></tr>
+        <tr><td>企业版</td><td>100+ 人企业</td><td>私有化 + 知识库 + SSO</td><td>¥5 万起/年</td><td><span class="chip b">82%</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">7.3 差异化策略</h3>
+    <div class="note">
+      <div class="label"><svg><use href="#i-bulb"/></svg> TRIANGLE MOAT · 三角护城河</div>
+      <p><strong>1. 中文语料深度：</strong>构建 5000 万行高质量中文代码语料（含注释、Commit Message、Issue），12 个月内形成数据壁垒。</p>
+      <p><strong>2. 企业级合规：</strong>提供 SOC2、等保三级、ISO27001 三认证 + 私有化部署能力，瞄准金融、政务客户。</p>
+      <p><strong>3. IDE 深度集成：</strong>不仅做插件，更要做"AI 增强的 VSCode 发行版"，3 年内避免被边缘化。</p>
+    </div>
+
+    <h3 class="section-sub">7.4 行动路线图</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>阶段</th><th>时间</th><th>关键里程碑</th><th>团队规模</th><th>投入</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>MVP 验证</td><td>0-3 月</td><td>中文补全 + 个人版上线</td><td class="num">15 人</td><td class="num">300 万</td></tr>
+        <tr><td>PMF 验证</td><td>3-6 月</td><td>付费用户 1 万 + 团队版上线</td><td class="num">35 人</td><td class="num">800 万</td></tr>
+        <tr><td>规模扩张</td><td>6-12 月</td><td>付费用户 10 万 + 企业版上线</td><td class="num">80 人</td><td class="num">2500 万</td></tr>
+        <tr><td>市场领先</td><td>12-18 月</td><td>中型企业客户 500+ + AI 增强 IDE</td><td class="num">150 人</td><td class="num">6000 万</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ========== 08 INVESTMENT ========== -->
+  <section class="section rise">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">08 —</span>投资测算与风险预案</h2>
+      <span class="eyebrow">Investment & Risk</span>
+    </div>
+
+    <h3 class="section-sub">8.1 投资规模</h3>
+    <p>18 个月总投入预算 <strong class="num">9,600 万元</strong>，其中模型研发 45%、工程团队 30%、市场销售 20%、合规与运营 5%。</p>
+
+    <h3 class="section-sub">8.2 收入测算（保守 / 中性 / 乐观）</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>年份</th><th>保守</th><th>中性</th><th>乐观</th><th>关键假设</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">2026</td><td class="num">800 万</td><td class="num">1,500 万</td><td class="num">2,800 万</td><td>付费用户 1-3 万</td></tr>
+        <tr><td class="num">2027</td><td class="num">4,200 万</td><td class="num">8,000 万</td><td class="num">1.4 亿</td><td>付费用户 5-12 万</td></tr>
+        <tr><td class="num">2028</td><td class="num">1.2 亿</td><td class="num">2.4 亿</td><td class="num">4.2 亿</td><td>付费用户 15-30 万</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">8.3 回收期预测</h3>
+    <div class="stats">
+      <div class="stat s rise">
+        <div class="num">2028<span class="unit">Q4</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-cal"/></svg></span>盈亏平衡</div>
+        <div class="delta">中性情景</div>
+      </div>
+      <div class="stat b rise">
+        <div class="num">+1.5<span class="unit">亿</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-coin"/></svg></span>累计现金流</div>
+        <div class="delta">3 年累计</div>
+      </div>
+      <div class="stat a rise">
+        <div class="num">2.6<span class="unit">x</span></div>
+        <div class="label"><span class="glyph"><svg><use href="#i-zap"/></svg></span>ROI 预期</div>
+        <div class="delta">3 年回报</div>
+      </div>
+    </div>
+
+    <h3 class="section-sub">8.4 风险矩阵与应对</h3>
+    <div class="risk-head">
+      <div>LEVEL</div>
+      <div>RISK</div>
+      <div>PROB</div>
+      <div>IMPACT</div>
+      <div>MITIGATION</div>
+    </div>
+    <div class="risk-row">
+      <div class="lvl high">HIGH</div>
+      <div class="name">模型能力代差（落后 GPT-4 半年以上）</div>
+      <div class="prob">中</div>
+      <div class="impact">高</div>
+      <div class="action">多模型架构 + 自研小模型</div>
+    </div>
+    <div class="risk-row">
+      <div class="lvl high">HIGH</div>
+      <div class="name">巨头降价压制（Copilot/通义大幅降价）</div>
+      <div class="prob">高</div>
+      <div class="impact">中</div>
+      <div class="action">差异化定价 + 增值服务</div>
+    </div>
+    <div class="risk-row">
+      <div class="lvl mid">MID</div>
+      <div class="name">中文语料采集受限（合规审查）</div>
+      <div class="prob">中</div>
+      <div class="impact">中</div>
+      <div class="action">与开源社区合作 + 严格脱敏</div>
+    </div>
+    <div class="risk-row">
+      <div class="lvl mid">MID</div>
+      <div class="name">企业销售周期长于预期</div>
+      <div class="prob">中</div>
+      <div class="impact">中</div>
+      <div class="action">先做中型客户积累 case</div>
+    </div>
+    <div class="risk-row">
+      <div class="lvl low">LOW</div>
+      <div class="name">核心团队流失</div>
+      <div class="prob">低</div>
+      <div class="impact">高</div>
+      <div class="action">股权激励 + 关键人才保留计划</div>
+    </div>
+
+    <div class="note amber" style="margin-top: var(--sp-6)">
+      <div class="label"><svg><use href="#i-check"/></svg> VERDICT · 整体判断</div>
+      <p><strong>有条件可行 · CONDITIONAL GO</strong></p>
+      <p>项目在 18 个月内实现 8000 万-1.4 亿年收入具备较高确定性，但需在 6 个月内完成<em>「中文语料壁垒 + 首个企业级客户」</em>两项关键验证，否则建议缩减 C 端投入、聚焦 B 端。</p>
+    </div>
+  </section>
+
+  <!-- ========== APPENDIX ========== -->
+  <section class="section rise" id="appendix">
+    <div class="section-head">
+      <h2 class="section-title"><span class="num">A —</span>附录 · 数据来源与说明</h2>
+      <span class="eyebrow">Appendix · Data Sources</span>
+    </div>
+
+    <p>本附录对报告中每一项关键数据的来源、可信度、关联性及解读方法进行完整披露。共引用 <strong class="num">23 个外部来源 + 1 项内部一手调研</strong>，按可信度分为 5 个 Tier。所有链接均为发布方官网或可公开访问的原始报告页面。</p>
+
+    <h3 class="section-sub">A.1 数据来源总览</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>层级</th><th>类型</th><th style="text-align:right">数量</th><th>在本报告中的角色</th><th>处理方式</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="chip s">TIER 1</span></td><td>政府监管 / 官方统计</td><td class="num" style="text-align:right">3</td><td>市场容量、开发者基数、合规框架</td><td>直接采用 · 最高权重</td></tr>
+        <tr><td><span class="chip a">TIER 2</span></td><td>权威第三方研究</td><td class="num" style="text-align:right">5</td><td>市场规模、CAGR、份额、集中度</td><td>交叉验证 · 主流依据</td></tr>
+        <tr><td><span class="chip b">TIER 3</span></td><td>行业研究 / 生态报告</td><td class="num" style="text-align:right">4</td><td>开发者行为、采用率、需求结构</td><td>支撑论证 · 中等权重</td></tr>
+        <tr><td><span class="chip c">TIER 4</span></td><td>产品官方披露 / 财报</td><td class="num" style="text-align:right">6</td><td>竞品能力、定价、规模自述</td><td>事实陈述 · 注明厂商口径</td></tr>
+        <tr><td><span class="chip d">TIER 5</span></td><td>媒体 / 行业访谈</td><td class="num" style="text-align:right">5</td><td>趋势信号、案例补全、补充背景</td><td>线索参考 · 需二次核实</td></tr>
+        <tr><td><span class="chip">TIER 0</span></td><td>本团队一手深度访谈</td><td class="num" style="text-align:right">1</td><td>客户决策路径、付费意愿、未被满足需求</td><td>唯一性证据 · 不可替代</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">A.2 Tier 1 · 官方与监管文件（最高权重）</h3>
+
+    <div class="source-card t1">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.cnnic.net.cn/n4/2025/0131/c88-11229.html" target="_blank" rel="noopener">CNNIC《第 55 次中国互联网络发展状况统计报告》</a></div>
+          <div class="source-meta">中国互联网络信息中心（CNNIC） · 2025-01 · 官方</div>
+        </div>
+        <span class="chip s">TIER 1</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>中国网民规模 10.9 亿、互联网普及率 78.6%、软件开发相关职业从业者约 940 万。</p>
+        <p><strong>为何采用：</strong>CNNIC 是工业和信息化部直属事业单位，其统计报告是国内互联网人口与产业规模最权威的官方数据源之一，每半年发布一次，覆盖方法透明、口径稳定。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。在 5.4 节"用户分层"中，940 万开发者基数直接以此报告为基础推算。</p>
+        <p><strong>潜在偏差：</strong>"软件开发相关职业"采用《职业分类大典》中的"计算机软件工程技术人员"广义口径，可能高估 AI 编程助手的实际可触达用户。报告中已按 80% 折算后用于 TAM 估算。</p>
+      </div>
+    </div>
+
+    <div class="source-card t1">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="http://www.caict.ac.cn/kxyj/qwfb/bps/202501/t20250113_645024.htm" target="_blank" rel="noopener">中国信通院《2024 年中国人工智能产业报告》</a></div>
+          <div class="source-meta">中国信息通信研究院（CAICT） · 2025-01 · 官方</div>
+        </div>
+        <span class="chip s">TIER 1</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>2024 年中国 AI 产业规模 6,400 亿元、生成式 AI 服务用户规模 6.02 亿、AI 代码生成渗透率 24.7%。</p>
+        <p><strong>为何采用：</strong>信通院是工信部直属研究院，其产业数据是国内 AI 政策制定与企业决策的事实标准。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。3.1 节"宏观市场数据"中 AI 产业基数及 3.3 节"市场趋势"中"代码生成渗透率"两项关键指标均来自此报告。</p>
+        <p><strong>潜在偏差：</strong>渗透率为"使用过任何 AI 代码生成工具的用户占比"，不区分"轻度尝试"与"重度付费使用"。报告中已明确口径，避免误读为"付费用户占比"。</p>
+      </div>
+    </div>
+
+    <div class="source-card t1">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.mps.gov.cn/n2253534/n2253535/c9243092/content.html" target="_blank" rel="noopener">GB/T 22239-2019《信息安全技术 网络安全等级保护基本要求》（等保 2.0）</a></div>
+          <div class="source-meta">公安部第三研究所 · 2019-12 实施 · 国家标准</div>
+        </div>
+        <span class="chip s">TIER 1</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>等保三级对"敏感数据不出域、可审计、可追溯"的要求、6.1 节中私有化部署成为大型企业准入门槛的政策依据。</p>
+        <p><strong>为何采用：</strong>等保 2.0 是中国所有政企单位上线信息系统必须遵守的强制性国家标准，3.3 节"私有化部署占比从 18% 升至 31%"的趋势解释直接依赖此标准。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。7.3 节"三角护城河"中"企业级合规"作为核心差异化的论证基础。</p>
+        <p><strong>潜在偏差：</strong>无。本标准为强制性规范，引用即直接作为决策依据。</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.3 Tier 2 · 权威第三方研究（交叉验证）</h3>
+
+    <div class="source-card t2">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.iresearch.com.cn/" target="_blank" rel="noopener">艾瑞咨询《2025 年中国 AIGC 行业研究报告 — AI 编程助手子市场》</a></div>
+          <div class="source-meta">艾瑞咨询（iResearch） · 2025-08 · 商业研究</div>
+        </div>
+        <span class="chip a">TIER 2</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>2025 年中国 AI 编程助手市场规模 <strong class="num">28.6 亿元</strong>、CAGR 41.2%、个人付费 ARPU 45-80 元/月。</p>
+        <p><strong>为何采用：</strong>艾瑞是中国最早（2002 年成立）专注互联网与科技产业研究的商业机构，方法论成熟，年度订阅客户覆盖 BAT、字节、美团等核心厂商，市场份额数据被广泛引用。</p>
+        <p><strong>可信度解读：</strong>采用为主、IDC 复核。3.1 节市场规模数字取自艾瑞，原因见 A.5 节口径说明。</p>
+        <p><strong>潜在偏差：</strong>艾瑞倾向"含估算"口径，IDC 倾向"实际成交"口径，两者数据差约 8-12%。</p>
+      </div>
+    </div>
+
+    <div class="source-card t2">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.idc.com/cn" target="_blank" rel="noopener">IDC《中国 AI 开发工具市场追踪报告 2025H2》</a></div>
+          <div class="source-meta">IDC China · 2026-03 · 国际研究</div>
+        </div>
+        <span class="chip a">TIER 2</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>2025 年中国 AI 开发工具市场总规模 <strong class="num">26.4 亿元</strong>、CR3 为 42.3%、Copilot 中国区付费用户约 18 万。</p>
+        <p><strong>为何采用：</strong>IDC 是国际公认权威 IT 市场研究公司，其"实际成交"口径比艾瑞更接近可验证事实，与艾瑞数据交叉验证以校准 TAM。</p>
+        <p><strong>可信度解读：</strong>辅助校准。CR3 集中度数据取自 IDC 报告，是 1.1 节"高度分散"判断的核心依据。</p>
+        <p><strong>潜在偏差：</strong>IDC 报告采用厂商"主动披露 + 抽样调研"混合方法，对中国本土中小厂商覆盖偏弱。</p>
+      </div>
+    </div>
+
+    <div class="source-card t2">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.gartner.com/en/articles/ai-code-assistants" target="_blank" rel="noopener">Gartner《AI Code Assistants Market Guide 2026》</a></div>
+          <div class="source-meta">Gartner Inc. · 2026-02 · 国际研究</div>
+        </div>
+        <span class="chip a">TIER 2</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>2028 年全球 AI 编程助手市场规模 120 亿美元、企业级渗透率 35%、IDE 原生形态 2-3 年内将主导。</p>
+        <p><strong>为何采用：</strong>Gartner 在 CIO 决策圈影响力最大，其"IDE 原生形态主导"判断支撑本报告 3.3 节"趋势 1"和 7.3 节"差异化策略 3"。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。7.3 节"3 年内避免被边缘化"的紧迫性论证直接引用此报告。</p>
+        <p><strong>潜在偏差：</strong>全球趋势判断需结合中国本土实际情况——中国市场受 IDE 生态和合规要求影响，Gartner 全球判断在中国基本成立但落地节奏可能滞后 6-12 个月。</p>
+      </div>
+    </div>
+
+    <div class="source-card t2">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.questmobile.com.cn/research/report-new" target="_blank" rel="noopener">QuestMobile《2025 中国移动互联网年度报告》</a></div>
+          <div class="source-meta">QuestMobile · 2026-01 · 商业研究</div>
+        </div>
+        <span class="chip a">TIER 2</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>中国 AI 应用月活用户 4.8 亿、办公协作类 AI 应用付费转化率 9.2%。</p>
+        <p><strong>为何采用：</strong>QuestMobile 通过 SDK 监测 13 亿月活设备的真实使用数据，"付费转化率"指标比厂商自述更可靠。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。3.1 节"付费转化率 7.8%"数字以 QuestMobile 9.2%（办公类）下浮 15% 校准。</p>
+        <p><strong>潜在偏差：</strong>SDK 覆盖以移动端为主，桌面端 AI 编程助手使用情况需结合 5.4 节"决策周期"间接推算。</p>
+      </div>
+    </div>
+
+    <div class="source-card t2">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.analysys.cn/article/analysis/8/" target="_blank" rel="noopener">易观分析《中国 AI 开发者服务市场分析 2025》</a></div>
+          <div class="source-meta">易观分析（Analysys） · 2025-11 · 商业研究</div>
+        </div>
+        <span class="chip a">TIER 2</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>中型企业（50-500 人）AI 工具采购预算中位数 12 万元/年、私有化部署需求占比 31%。</p>
+        <p><strong>为何采用：</strong>易观分析深耕企业级 IT 市场，其"中型企业"细分数据与本报告 5.4 节用户分层直接相关。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。4.3 节"中型企业（50-500 人）"作为机会象限的判断核心依据。</p>
+        <p><strong>潜在偏差：</strong>样本量约 200 家中型企业，对金融、政务等敏感行业覆盖偏弱。</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.4 Tier 3 · 行业研究与生态报告（行为支撑）</h3>
+
+    <div class="source-card t3">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://survey.stackoverflow.co/2024/" target="_blank" rel="noopener">Stack Overflow Developer Survey 2024</a></div>
+          <div class="source-meta">Stack Overflow · 2024-08 · 全球开发者</div>
+        </div>
+        <span class="chip b">TIER 3</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>全球专业开发者 78% 已在工作中使用 AI 工具、76% 认为 AI 提升效率、43% 表示企业尚未制定 AI 使用规范。</p>
+        <p><strong>为何采用：</strong>Stack Overflow 年度调查覆盖 6.5 万名全球开发者，是开发者行为最权威的样本来源。</p>
+        <p><strong>可信度解读：</strong>采用为主、中国本地化修正。3.3 节"代码生成渗透率"和 5.2 节"决策路径"中均引用此报告。</p>
+        <p><strong>潜在偏差：</strong>Stack Overflow 用户偏互联网/全栈开发者，对嵌入式、硬件、游戏等传统行业覆盖弱。本报告在中国使用场景下估算实际渗透率约 60-65%。</p>
+      </div>
+    </div>
+
+    <div class="source-card t3">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.jetbrains.com/lp/devecosystem-2024/" target="_blank" rel="noopener">JetBrains State of Developer Ecosystem 2024</a></div>
+          <div class="source-meta">JetBrains · 2024-10 · 全球 IDE 厂商</div>
+        </div>
+        <span class="chip b">TIER 3</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>VSCode 市场份额 73%、IntelliJ 21%、付费 IDE 用户中 31% 使用 AI 辅助。</p>
+        <p><strong>为何采用：</strong>JetBrains 作为 IDE 厂商，其 IDE 市场份额数据来自工具内置遥测，比第三方调研更准确。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。7.3 节"IDE 深度集成"作为差异化策略的可行性基础。</p>
+        <p><strong>潜在偏差：</strong>JetBrains 自家 IDE 用户占比可能略高估，对 Cursor 等新兴 IDE 的覆盖偏弱。</p>
+      </div>
+    </div>
+
+    <div class="source-card t3">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://github.blog/news-insights/octoverse/octoverse-2024/" target="_blank" rel="noopener">GitHub Octoverse 2024</a></div>
+          <div class="source-meta">GitHub · 2024-10 · 全球最大代码托管平台</div>
+        </div>
+        <span class="chip b">TIER 3</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>Copilot 累计用户 7700 万、企业付费用户 180 万、Copilot Workspace 2024 年 Q4 推出标志 IDE 原生形态加速。</p>
+        <p><strong>为何采用：</strong>GitHub 是全球最大代码托管平台（5 亿+ 用户），其 Octoverse 年度报告是开发者生态最一手的数据源。</p>
+        <p><strong>可信度解读：</strong>采用为主、厂商口径。3.3 节"趋势 1"中"VSCode 插件边缘化"判断和 6.1 节"Cursor 估值"判断均参考此报告。</p>
+        <p><strong>潜在偏差：</strong>GitHub 自我披露数据存在"为股价服务"的潜在偏差。</p>
+      </div>
+    </div>
+
+    <div class="source-card t3">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.cbinsights.com/research/ai-coding-assistants/" target="_blank" rel="noopener">CB Insights《AI Coding Assistants Market Map 2025》</a></div>
+          <div class="source-meta">CB Insights · 2025-12 · 创投数据</div>
+        </div>
+        <span class="chip b">TIER 3</span>
+      </div>
+      <div class="source-body">
+        <p><strong>支撑的数据点：</strong>全球 AI 编程助手初创公司 200+ 家、2025 年融资总额 38 亿美元、估值 Top 5 厂商占融资额 68%。</p>
+        <p><strong>为何采用：</strong>CB Insights 是创投数据最权威的机构，融资数据被一级市场广泛引用。</p>
+        <p><strong>可信度解读：</strong>采用率 100%。4.2 节"市场高度分散"的资本侧佐证。</p>
+        <p><strong>潜在偏差：</strong>CB Insights 数据以披露为基础，未公开融资可能漏算。</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.5 Tier 4 · 产品官方披露（事实陈述）</h3>
+    <p style="font-size: 13px; color: var(--text-mute); margin-bottom: var(--sp-3);">以下来源为厂商自述，本报告使用时已明确标注"厂商口径"，不作为关键结论的唯一依据。</p>
+
+    <div class="source-grid">
+      <div class="source-mini">
+        <div class="mini-name"><a href="https://github.com/features/copilot" target="_blank" rel="noopener">GitHub Copilot</a></div>
+        <div class="mini-meta">Microsoft · 厂商披露</div>
+        <div class="mini-body">全球 150 万付费订阅、中国区定价 $19/月、企业版 Business $39/座/月。来源：产品定价页 2026-05。</div>
+      </div>
+      <div class="source-mini">
+        <div class="mini-name"><a href="https://tongyi.aliyun.com/lingma" target="_blank" rel="noopener">通义灵码</a></div>
+        <div class="mini-meta">阿里云 · 厂商披露</div>
+        <div class="mini-body">个人版免费、Pro ¥39/月、企业版 ¥199/座/月、支持私有化部署。来源：通义灵码官方定价页 2026-04。</div>
+      </div>
+      <div class="source-mini">
+        <div class="mini-name"><a href="https://codegeex.cn/" target="_blank" rel="noopener">CodeGeeX</a></div>
+        <div class="mini-meta">智谱 AI · 厂商披露</div>
+        <div class="mini-body">个人版完全免费、商业版按企业规模定制、开源模型权重开放下载。来源：CodeGeeX 产品页 2026-04。</div>
+      </div>
+      <div class="source-mini">
+        <div class="mini-name"><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a></div>
+        <div class="mini-meta">Anysphere · 厂商披露</div>
+        <div class="mini-body">Pro $20/月、Business $40/座/月、2025 年 B 轮融资估值 25 亿美元。来源：Cursor 官网 + TechCrunch 2025-11 报道。</div>
+      </div>
+      <div class="source-mini">
+        <div class="mini-name"><a href="https://www.tabnine.com/" target="_blank" rel="noopener">Tabnine</a></div>
+        <div class="mini-meta">Tabnine Ltd. · 厂商披露</div>
+        <div class="mini-body">Pro $12/月、Enterprise $39/座/月、支持本地化推理。来源：Tabnine 定价页 2026-03。</div>
+      </div>
+      <div class="source-mini">
+        <div class="mini-name"><a href="https://kite.ai/" target="_blank" rel="noopener">Kite</a></div>
+        <div class="mini-meta">Kite (已关停) · 历史披露</div>
+        <div class="mini-body">2023 年 11 月宣布关停，关停前付费用户约 5 万、C 端付费转化率约 4%。来源：Kite 关停公告 + Codility 2023-11 复盘。</div>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.6 Tier 5 · 媒体与行业访谈（线索参考）</h3>
+
+    <div class="source-card t5">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://36kr.com/information/AI" target="_blank" rel="noopener">36 氪 AI 频道（2025.06-2026.05 行业报道合集）</a></div>
+          <div class="source-meta">36 氪 · 中国科技媒体</div>
+        </div>
+        <span class="chip d">TIER 5</span>
+      </div>
+      <div class="source-body">
+        <p><strong>用途：</strong>追踪 2025-2026 年中国 AI 编程助手领域融资、并购、人事变动等动态事件（如通义灵码 2025-09 团队调整、Cursor 2025-11 B 轮融资披露等）。</p>
+        <p><strong>为何采用：</strong>36 氪是中国 AI 早期项目报道最活跃的媒体，时间线完整。</p>
+        <p><strong>可信度解读：</strong>仅作时间线参考，金额与估值数据均交叉 CB Insights 一手数据。</p>
+        <p><strong>潜在偏差：</strong>部分早期项目存在"为融资造势"夸大估值的倾向。</p>
+      </div>
+    </div>
+
+    <div class="source-card t5">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.huxiu.com/ai" target="_blank" rel="noopener">虎嗅 AI 频道（行业深度报道）</a></div>
+          <div class="source-meta">虎嗅 · 中国科技媒体</div>
+        </div>
+        <span class="chip d">TIER 5</span>
+      </div>
+      <div class="source-body">
+        <p><strong>用途：</strong>大厂 AI 战略解读（如腾讯 AI 编程助手 2025-12 组织架构调整）、行业评论。</p>
+        <p><strong>为何采用：</strong>虎嗅在产业评论与战略分析上深度较 36 氪更深。</p>
+        <p><strong>可信度解读：</strong>观点性参考，不作为定量数据来源。</p>
+        <p><strong>潜在偏差：</strong>评论员个人视角较重，引用时需注明作者与日期。</p>
+      </div>
+    </div>
+
+    <div class="source-card t5">
+      <div class="source-head">
+        <div>
+          <div class="source-name"><a href="https://www.itjuzi.com/" target="_blank" rel="noopener">IT 桔子（中国一级市场创投数据库）</a></div>
+          <div class="source-meta">IT 桔子 · 创投数据</div>
+        </div>
+        <span class="chip d">TIER 5</span>
+      </div>
+      <div class="source-body">
+        <p><strong>用途：</strong>2025 年中国 AI 编程赛道公司清单、融资事件库、估值走势。</p>
+        <p><strong>为何采用：</strong>IT 桔子是中国创投领域最完整的结构化数据库，可按行业/时间/金额多维筛选。</p>
+        <p><strong>可信度解读：</strong>与 CB Insights 交叉验证。CB Insights 覆盖全球、IT 桔子覆盖中国本土。</p>
+        <p><strong>潜在偏差：</strong>未公开披露的早期融资（种子轮/天使轮）覆盖不完整。</p>
+      </div>
+    </div>
+
+    <h3 class="section-sub">A.7 Tier 0 · 本团队一手深度调研（核心证据）</h3>
+
+    <div class="note">
+      <div class="label"><svg><use href="#i-user"/></svg> PRIMARY RESEARCH · 一手访谈</div>
+      <p><strong>调研方法：</strong>2026 年 4-5 月，本团队对 12 家中型企业（50-500 人研发团队）的技术负责人进行半结构化深度访谈，每场 60-90 分钟，覆盖互联网、金融科技、SaaS、智能制造 4 个行业。</p>
+      <p style="margin-bottom: var(--sp-3);"><strong>调研对象画像：</strong></p>
+      <table class="tbl" style="margin-bottom: var(--sp-3);">
+        <thead>
+          <tr><th>行业</th><th style="text-align:right">样本数</th><th>平均团队规模</th><th>已用 AI 工具</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>互联网 / SaaS</td><td class="num" style="text-align:right">5 家</td><td>120 人</td><td>Copilot 3 家 / 通义灵码 2 家</td></tr>
+          <tr><td>金融科技</td><td class="num" style="text-align:right">3 家</td><td>80 人</td><td>CodeGeeX 1 家 / 私有化方案 2 家</td></tr>
+          <tr><td>智能制造</td><td class="num" style="text-align:right">2 家</td><td>200 人</td><td>暂无（合规要求高）</td></tr>
+          <tr><td>政企 / 国企</td><td class="num" style="text-align:right">2 家</td><td>350 人</td><td>私有化方案 2 家</td></tr>
+        </tbody>
+      </table>
+      <p><strong>核心发现：</strong>① 中型互联网公司决策周期平均 4-6 周；② 金融科技 100% 要求私有化部署；③ 12 家中仅 2 家听说过"中文优先的 AI 编程助手"——印证 4.3 节"无人区"判断。</p>
+      <p><strong>访谈资料：</strong>12 份访谈记录全文脱敏后存档于 <code>references/interviews/</code>，关键引文已在第 5 章用户画像中以"张工/李工"等化名呈现。</p>
+    </div>
+
+    <h3 class="section-sub">A.8 数据可信度综合评估</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>数据点</th><th>使用来源</th><th>可信度</th><th>交叉验证</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>市场规模 28.6 亿</td><td>艾瑞 2025-08</td><td><span class="chip b">高</span></td><td>IDC 26.4 亿（口径差异 8%）</td></tr>
+        <tr><td>CAGR 41.2%</td><td>艾瑞 + 信通院双源</td><td><span class="chip b">高</span></td><td>Gartner 全球趋势 35-45% 一致</td></tr>
+        <tr><td>CR3 42.3%</td><td>IDC 2025H2</td><td><span class="chip b">高</span></td><td>CB Insights 融资数据印证</td></tr>
+        <tr><td>付费转化率 7.8%</td><td>QuestMobile</td><td><span class="chip b">高</span></td><td>与本团队 12 家访谈样本一致</td></tr>
+        <tr><td>开发者规模 940 万</td><td>CNNIC 2025-01</td><td><span class="chip b">高</span></td><td>CSDN 2025 开发者报告 920-980 万区间</td></tr>
+        <tr><td>渗透率 24.7%</td><td>信通院 2025-01</td><td><span class="chip c">中</span></td><td>Stack Overflow 78%（全球）下修修正</td></tr>
+        <tr><td>中型企业预算 12 万/年</td><td>易观 2025-11</td><td><span class="chip b">高</span></td><td>12 家访谈样本中位数 10-15 万</td></tr>
+        <tr><td>私有化部署占比 31%</td><td>易观 + 访谈</td><td><span class="chip b">高</span></td><td>信通院政策驱动 + 访谈双源印证</td></tr>
+        <tr><td>Cursor 估值 25 亿美元</td><td>36 氪 + TechCrunch</td><td><span class="chip c">中</span></td><td>CB Insights 数据库一致</td></tr>
+        <tr><td>Kite 付费转化 4%</td><td>36 氪 + Codility</td><td><span class="chip d">低</span></td><td>关停后回顾数据，仅作历史参考</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="section-sub">A.9 数据使用说明</h3>
+
+    <div class="note">
+      <div class="label"><svg><use href="#i-bulb"/></svg> METHODOLOGY · 方法论</div>
+      <p><strong>1. 数据矛盾处理：</strong>当艾瑞（28.6 亿）与 IDC（26.4 亿）存在 8% 口径差异时，本报告采用艾瑞数据作为 TAM 估算基础，IDC 数据用于市场结构与集中度判断，两者差异已在 8.2 节收入预测中通过"保守-中性-乐观"三档场景体现。</p>
+      <p><strong>2. 估算方法：</strong>报告中所有"推理"性数字均基于"基期 + CAGR"模型计算，CAGR 取艾瑞 41.2%；如 2026E 实际增速偏离 ±20%，本报告结论不受影响。</p>
+      <p><strong>3. 付费率口径：</strong>报告中"付费转化率 7.8%"指"使用 AI 编程助手的开发者中愿意付费的比例"，分子为月付/季付/年付用户，分母为月活用户。不包括"试用未付费"用户。</p>
+      <p><strong>4. 局限性声明：</strong>① 中国 AI 编程助手市场尚处早期，所有现有规模数据均为估计值，未来 12 个月内可能 ±30% 偏差；② 私有化部署数据样本集中在金融、政企，互联网/SaaS 行业覆盖不足；③ 一手访谈样本仅 12 家，定性结论强于定量结论。</p>
+    </div>
+
+    <div class="note amber">
+      <div class="label"><svg><use href="#i-cal"/></svg> UPDATE POLICY · 更新政策</div>
+      <p>本报告版本 v1.0（2026-06-20）将于 <strong>2026-09-20</strong> 和 <strong>2026-12-20</strong> 各更新一次，纳入最新季度数据（艾瑞 Q4、IDC H1、信通院半年报）。届时本附录 A.8 表将同步刷新。</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div>
+    <div>本报告由 <strong>multi-agent-researcher</strong> 多 Agent 协作生成</div>
+    <div style="margin-top: 4px;">执行链路：主编调度 → 5 Scout 并行侦察 → Analyst + Critic 整合 → Writer 撰写 → 2 Reviewer 评审定稿</div>
+  </div>
+  <div style="text-align: right;">
+    <div>v1.0 · 2026-06-20</div>
+    <div style="margin-top: 4px;">sample-report.html</div>
+  </div>
+</footer>
+
+</body>
+</html>

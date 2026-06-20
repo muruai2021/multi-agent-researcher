@@ -1,6 +1,22 @@
 # 报告撰写模板
 
-> Writer Agent使用此文档生成标准化调研报告。
+> Writer Agent 使用此文档生成标准化调研报告。
+> **HTML 输出格式规范**：见 [`output-template.html`](output-template.html) - Light Editorial 风格完整模板，含所有占位符、组件库、组件使用规范。Writer 应基于该 HTML 模板输出最终报告。
+
+## 模板使用说明
+
+### 文档关系
+- **`report-templates.md`**（本文件）— Markdown 形式的章节结构、内容规范、写作要求
+- **`output-template.html`** — HTML 形式的视觉模板，Writer 输出报告的最终格式
+- **`sample-report.html`**（位于 skill 根目录）— 完整样例，Writer 可参考实际填充效果
+
+### Writer 工作流
+1. 读取本文件了解章节结构与内容要求
+2. 复制 `output-template.html` 为新文件 `references/output/{project_id}/report.html`
+3. 按本文件的章节规范填充 `{{占位符}}`
+4. 删除模板中不需要的章节（如不需要 case studies 时删除 06 整章）
+5. 附录 B（组件库）正式发布前必须删除
+6. 验证：emoji 数 = 0、链接数 ≥ 5、章节结构完整
 
 ---
 
